@@ -7,12 +7,14 @@ import router from './routes'
 
 import App from './components/App'
 
+//const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
+//const domain = process.env.REACT_APP_AUTH0_DOMAIN
 const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     <Auth0Provider
-      domain="https://dev-1ackkh7witjzru1x.us.auth0.com"
+      domain="https://dev-1ackkh7witjzru1x.us.auth0.com" 
       clientId="ipcjUqS4hMyxTLvNhK4gnncdtYJQG78d"
       redirectUri={window.location.origin}
       audience="https://missingPurrson/api"

@@ -47,12 +47,12 @@ export default function RegisterUser() {
         throw new Error('Failed to fetch user data') // Throw an error if there's an issue
       }
     },
-    // onSuccess: (userData) => {
-    //   // Navigate based on the presence of user data
-    //   if (userData) {
-    //     navigate('/');
-    //   }
-    // },
+    onSuccess: (userData) => {
+      // Navigate based on the presence of user data
+      if (userData) {
+        navigate('/');
+      }
+    },
   })
 
   if (user) {
