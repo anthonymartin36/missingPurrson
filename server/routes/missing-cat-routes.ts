@@ -5,10 +5,10 @@ import multer from 'multer'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    return cb(null, 'server/images/missing_cats')
+    return cb(null, 'server/images/missing_cats/')
   },
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}_${file.originalname}`)
+    return cb(null, `${file.originalname}`)
   },
 })
 
