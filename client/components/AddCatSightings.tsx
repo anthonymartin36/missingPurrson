@@ -8,6 +8,7 @@ import { addCatSightingApi, getCatSightingsApi } from '../apis/api-cats'
 import { useParams } from 'react-router-dom'
 import { SightedCat } from '../../models/cats'
 import { Link } from 'react-router-dom'
+import * as dotenv from 'dotenv'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
 
@@ -218,7 +219,7 @@ export default function AddCatSightings() {
                         LOCATION
                       </label>
                       <LoadScript
-                        googleMapsApiKey="AIzaSyD499QbrpxctpzIhJlz48TDok-4hXTRTWw"
+                        googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                         libraries={['places']}
                       >
                         <StandaloneSearchBox
