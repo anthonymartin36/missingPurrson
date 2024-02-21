@@ -24,6 +24,7 @@ export default function Map({ catSightings }) {
     const getGoogleMapsKey = async () => {
       try {
         const apiKey = await fetchGoogleMapsAPIKey()
+        console.log("API Key" + apiKey)
         setGoogleMapsAPIKey(apiKey)
       } catch (error) {
         console.error('Error setting Google Maps API key:', error)
@@ -80,7 +81,7 @@ function Location({ sighting }) {
     const lng = parseFloat(lngString.trim())
 
     if (window.google && window.google.maps) {
-      console.log('running')
+      console.log('running - aka Google Maps')
       const marker = new window.google.maps.Marker({
         position: { lat, lng },
         map,
