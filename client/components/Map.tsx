@@ -8,7 +8,7 @@ import {
 import { fetchGoogleMapsAPIKey } from '../apis/api-map'
 
 const mapOptions = {
-  zoom: 15,
+  zoom: 14,
   center: {
     lat: -41.2924,
     lng: 174.7787,
@@ -24,7 +24,7 @@ export default function Map({ catSightings }) {
     const getGoogleMapsKey = async () => {
       try {
         const apiKey = await fetchGoogleMapsAPIKey()
-        console.log("API Key" + apiKey)
+        //console.log("API Key" + apiKey)
         setGoogleMapsAPIKey(apiKey)
       } catch (error) {
         console.error('Error setting Google Maps API key:', error)

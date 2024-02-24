@@ -82,6 +82,7 @@ export default function AddCatSightings() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("Location: " + formFields.location)
     formData.append('location', formFields.location)
     formData.append('stringLocation', formFields.stringLocation)
     formData.append('dateSeen', formFields.dateSeen)
@@ -231,6 +232,8 @@ export default function AddCatSightings() {
                             id="location"
                             type="text"
                             name="location"
+                            value={formFields.location}
+                            onChange={handleInputChange}
                           />
                         </StandaloneSearchBox>
                       </LoadScript>
