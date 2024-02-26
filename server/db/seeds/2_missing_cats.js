@@ -14,7 +14,7 @@ export async function seed(knex) {
         missing_cat_phone: '022-021-2355',
         missing_cat_email: 'daniel@kingston.com',
         missing_image_url:
-          'server/images/missing_cats/creed-1.jpg,server/images/missing_cats/creed-2.jpg,server/mssissing_cats/creed-3.jpg,server/images/missing_cats/creed-4.jpg,server/images/missing_cats/creed-5.jpg',
+          'server/images/missing_cats/creed-1.jpg,server/images/missing_cats/creed-2.jpg,server/images/missing_cats/creed-3.jpg,server/images/missing_cats/creed-4.jpg,server/images/missing_cats/creed-5.jpg',
         cat_missing: true,
       },
       {

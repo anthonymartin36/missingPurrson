@@ -9,15 +9,18 @@ import { fetchGoogleMapsAPIKey } from '../apis/api-map'
 
 const mapOptions = {
   zoom: 14,
-  center: {
-    lat: -41.2924,
-    lng: 174.7787,
-  },
+  center: { lat: -41.2924, lng: 174.7787},
+  disableDefaultUI: true,
+  zoomControl: true,
+  zoomControlOptions: { position: 3 } // Right top
 }
 
-export default function Map({ catSightings }) {
+export default function Map({ catSightings })  {
+  //console.log(catSightings)
   const [mapContainer, setMapContainer] = useState(null)
   const [mapLoaded, setMapLoaded] = useState(false)
+  const map = useGoogleMap()
+  const markerRef = useRef()
   const [googleMapsAPIKey, setGoogleMapsAPIKey] = useState('')
 
   useEffect(() => {
@@ -38,6 +41,46 @@ export default function Map({ catSightings }) {
     setMapLoaded(true)
   }
 
+  function Location({ sighting }) {
+
+  
+    useEffect(() => {
+      if (!map || !sighting) {
+        return
+      }
+      //console.log('bruh')
+  
+      console.log(map)
+  
+      // Clear existing markers
+      // if (markerRef.current) {
+      //   markerRef.current.setMap(null)
+      // }
+  
+      // Create markers for each sighting
+      const [latString, lngString] = sighting.location.split(', ')
+      const lat = parseFloat(latString.trim())
+      const lng = parseFloat(lngString.trim())
+  
+      if (window.google && window.google.maps) {
+        console.log('running - aka Google Maps')
+        const marker = new window.google.maps.Marker({
+          position: { lat, lng },
+          map,
+        })
+        markerRef.current = marker
+      }
+  
+      // Pan to the first sighting's location
+      const [firstLatString, firstLngString] = sighting.location.split(', ')
+      const firstLat = parseFloat(firstLatString.trim())
+      const firstLng = parseFloat(firstLngString.trim())
+  
+      map.panTo({ lat: firstLat, lng: firstLng })
+    }, [map, sighting])
+  
+  }
+
   return (
     <GoogleMapsProvider
       googleMapsAPIKey={googleMapsAPIKey}
@@ -51,51 +94,11 @@ export default function Map({ catSightings }) {
       />
       {catSightings.map((sighting) => (
         <Location key={sighting.id} sighting={sighting} />
-      ))}
+      ))} 
 
-      {/* {mapLoaded && <Location catSightings={catSightings} />} */}
+       {mapLoaded && <Location catSightings={catSightings} />}
     </GoogleMapsProvider>
   )
 }
 
-function Location({ sighting }) {
-  const map = useGoogleMap()
-  const markerRef = useRef()
 
-  useEffect(() => {
-    if (!map || !sighting) {
-      return
-    }
-    console.log('bruh')
-
-    console.log(map)
-
-    // Clear existing markers
-    if (markerRef.current) {
-      markerRef.current.setMap(null)
-    }
-
-    // Create markers for each sighting
-    const [latString, lngString] = sighting.location.split(', ')
-    const lat = parseFloat(latString.trim())
-    const lng = parseFloat(lngString.trim())
-
-    if (window.google && window.google.maps) {
-      console.log('running - aka Google Maps')
-      const marker = new window.google.maps.Marker({
-        position: { lat, lng },
-        map,
-      })
-      markerRef.current = marker
-    }
-
-    // Pan to the first sighting's location
-    const [firstLatString, firstLngString] = sighting.location.split(', ')
-    const firstLat = parseFloat(firstLatString.trim())
-    const firstLng = parseFloat(firstLngString.trim())
-
-    map.panTo({ lat: firstLat, lng: firstLng })
-  }, [map, sighting])
-
-  return <></>
-}
