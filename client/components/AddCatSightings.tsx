@@ -1,5 +1,5 @@
 //AddCatSighting.tsx
-import Map from './Map'
+import GoogleMap from './GoogleMap'
 
 import { useState, useRef, useEffect } from 'react'
 import { StandaloneSearchBox, LoadScript } from '@react-google-maps/api'
@@ -143,7 +143,7 @@ export default function AddCatSightings() {
       <section className="cat-sightings">
         <div className="cat-sightings__left">
           <div className="cat-sightings__map">
-            <Map catSightings={catsighting} />
+            <GoogleMap catSightings={catsighting} />
           </div>
         </div>
         <div className="cat-sightings__right">
