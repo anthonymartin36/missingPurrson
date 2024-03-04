@@ -23,12 +23,7 @@ export default function GoogleMap( {catSightings}: SightedCat ){
     <div><APIProvider apiKey={apikey} >
         <div style={{height:"75vh", width:"100%"}} >
         <Map zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID} > 
-       {catSightings.map((sighting) => { 
-        {console.log('Processing sighting:', sighting)}
-            <AdvancedMarker    
-                key={sighting.sighted_cat_id}             
-                position={{ lat: sighting.lat, lng: sighting.lng }} />
-        })} 
+        <Markers catSightings={catSightings}/>
         </Map> 
         </div>
     </APIProvider> </div>)
@@ -37,21 +32,30 @@ export default function GoogleMap( {catSightings}: SightedCat ){
 
 {/* <AdvancedMarker key={2} position={position} /> */}
 // {}
-// const Markers = ({catSightings} : any ) => {
-//     //const sightedCat = catSightings
-//     const sightedCat = catSightings.map(sighting => { 
-//         return sighting
-//     })
-//     //console.log("ID : " + JSON.stringify(sightedCat[0].sighted_cat_id) + " Lat " + sightedCat[0].lat + " and  Lng: " + sightedCat[0].lng)
-//     // console.log("Sighted Cat ID : " + JSON.stringify(sightedCat[0].sighted_cat_id))
-//     // console.log("Location : " + JSON.stringify(sightedCat[0].location))
+const Markers = ( {catSightings} : any ) => {
+    //const sightedCat = catSightings
+    const position2 = { lat: -41.285575, lng: 174.763563}
+    // const sightedCat = catSightings.map(sighting => { 
+    //     return sighting
+    // })
+    //console.log("ID : " + JSON.stringify(sightedCat[0].sighted_cat_id) + " Lat " + sightedCat[0].lat + " and  Lng: " + sightedCat[0].lng)
+    // console.log("Sighted Cat ID : " + JSON.stringify(sightedCat[0].sighted_cat_id))
+    // console.log("Location : " + JSON.stringify(sightedCat[0].location))
     
-//     //const position = { lat: -41.2924, lng: 174.7787}
-//     return (
-        
-//     )
+    // const position = catSightings.map((sighting) => {  
+    //     return { lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)} //{ lat: -41.285575, lng: 174.763563}
+    // })
+    // console.log('Processing sighting:', JSON.stringify(position))
+    return (
+        <>
+        {catSightings.map((sighting) => {
+            {return (<AdvancedMarker key={sighting.sighted_cat_id} position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} /> )}
+        })}  
+        </>
+    )
+    // { lat: sighting.lat, lng: sighting.lng }
 
-// }
+}
 
 {/* <AdvancedMarker 
 key={sighting.sighted_cat_id} 

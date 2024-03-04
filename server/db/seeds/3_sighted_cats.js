@@ -28,5 +28,19 @@ export async function seed(knex) {
         sighted_cat_email: 'rescuer@example.com',
         sighted_image_url: 'server/images/sighted_cats/butters-sighting.jpg',
       },
+      {
+        sighted_cat_id: 3,
+        user_id_sc: 2,
+        cat_id_mc: 2,
+        color: 'Orange',
+        description: 'Brown Siamese cat found in the backyard',
+        date_seen: '2023-02-25',
+        lat:"-41.302228",
+        lng: "174.780418",
+        location: "-41.302228, 174.780418",
+        sighted_cat_phone: '022-021-2355',
+        sighted_cat_email: 'rescuer@example.com',
+        sighted_image_url: 'server/images/sighted_cats/butters-sighting.jpg',
+      },
     ])
   }
