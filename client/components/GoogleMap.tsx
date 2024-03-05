@@ -43,28 +43,20 @@ const Markers = ( {catSightings} : any ) => {
         <>
         {catSightings.map((sighting) => {
             {return (
+            <>
             <AdvancedMarker 
                 onClick={toggleInfoWindow}
                 key={sighting.sighted_cat_id} 
                 ref={markerRef}
                 position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
                 <span style={{ fontSize:"2rem"}}>🐈‍</span>
-                {open && (<InfoWindow key={sighting.sighted_cat_id} anchor={marker} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
-                </InfoWindow> )}
             </AdvancedMarker> 
+            {open && (<InfoWindow anchor={marker} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
+                </InfoWindow> )}
+            </>
             )}
         })}  
         </>
     )
 
 }
-
-// const Info = ({sighting}: any)=> {
-    
-//     return (
-//         <>
-            
-        
-//         </>
-//     )
-// } 

@@ -33,7 +33,7 @@ export async function seed(knex) {
         user_id_sc: 2,
         cat_id_mc: 2,
         color: 'Orange',
-        description: 'Brown Siamese cat found in the backyard',
+        description: 'Friendly white cat with blue eyes found near the park',
         date_seen: '2023-02-25',
         lat:"-41.302228",
         lng: "174.780418",
