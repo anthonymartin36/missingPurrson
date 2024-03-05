@@ -6,6 +6,7 @@ import {
     Map,
     AdvancedMarker,
     InfoWindow,
+    useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps"
 import { SightedCat } from '../../models/cats'
 
@@ -14,7 +15,6 @@ import { SightedCat } from '../../models/cats'
 
 export default function GoogleMap( {catSightings}: SightedCat ){
     const position = { lat: -41.285575, lng: 174.763563}
-    
     //const anotherPosition = {lat: -41.298924, lng: 174.785708}
     //const sightings = {catSightings}
     //console.log("Id : " + catSightings[0].sighted_cat_id)
@@ -31,23 +31,26 @@ export default function GoogleMap( {catSightings}: SightedCat ){
 }
 
 
-{/* <AdvancedMarker key={2} position={position} /> */}
-// {}
 const Markers = ( {catSightings} : any ) => {
-    //const sightedCat = catSightings
-    //const position2 = { lat: -41.285575, lng: 174.763563}
     
-    //console.log(catSightings)
+    const [open, setOpen] = useState(false) 
+    const [markerRef, marker] = useAdvancedMarkerRef()
+    const toggleInfoWindow = () => setOpen(previousState => !previousState)
+
+    const closeInfoWindow = () => setOpen(false)
+    
     return (
         <>
         {catSightings.map((sighting) => {
             {return (
             <AdvancedMarker 
-                onClick={Info(sighting)}
+                onClick={toggleInfoWindow}
                 key={sighting.sighted_cat_id} 
-                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} >
+                ref={markerRef}
+                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
                 <span style={{ fontSize:"2rem"}}>🐈‍</span>
-                
+                {open && (<InfoWindow key={sighting.sighted_cat_id} anchor={marker} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
+                </InfoWindow> )}
             </AdvancedMarker> 
             )}
         })}  
@@ -56,13 +59,12 @@ const Markers = ( {catSightings} : any ) => {
 
 }
 
-const Info = ({sighting}: any)=> {
-    const [open, setOpen] = useState(true) 
-    return (
-        <>
-            {open && (<InfoWindow onCloseClick={() => setOpen(false)} position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} key={sighting.sighted_cat_id} > <p>{sighting.description} </p> 
-                </InfoWindow> )}
+// const Info = ({sighting}: any)=> {
+    
+//     return (
+//         <>
+            
         
-        </>
-    )
-} 
+//         </>
+//     )
+// } 
