@@ -1,7 +1,7 @@
 export async function seed(knex) {
     await knex('sighted_cats').insert([
       {
-        sighted_cat_id: 1,
+        sighted_cat_id: 1001,
         user_id_sc: 1,
         cat_id_mc: 1,
         color: 'blue with White ',
@@ -15,7 +15,7 @@ export async function seed(knex) {
         sighted_image_url: 'server/images/sighted_cats/creed-sighting.jpg',
       },
       {
-        sighted_cat_id: 2,
+        sighted_cat_id: 1002,
         user_id_sc: 2,
         cat_id_mc: 2,
         color: 'Orange',
@@ -29,7 +29,7 @@ export async function seed(knex) {
         sighted_image_url: 'server/images/sighted_cats/butters-sighting.jpg',
       },
       {
-        sighted_cat_id: 3,
+        sighted_cat_id: 1003,
         user_id_sc: 2,
         cat_id_mc: 2,
         color: 'Orange',

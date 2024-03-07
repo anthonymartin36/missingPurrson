@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.3",
+    "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.19.2",
     "@ubilabs/google-maps-react-hooks": "^2.0.2",
     "@vis.gl/react-google-maps": "^0.4.1",
@@ -41,7 +42,8 @@
     "react-animated-css": "^1.2.1",
     "sqlite3": "^5.1.6",
     "superagent": "7.1.1",
-    "use-history": "^1.4.1"
+    "use-history": "^1.4.1",
+    "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.9.1",

@@ -69,6 +69,8 @@ export interface NewSightedCat {
   color: string
   description: string
   dateSeen: Date
+  lng: string
+  lat: string
   location: string
   stringLocation: string
   sightedCatPhone: string

@@ -13,19 +13,18 @@ import { SightedCat } from '../../models/cats'
 //import { fetchGoogleMapsAPIKey } from '../apis/api-map'
 
 
-export default function GoogleMap( {catSightings}: Array<SightedCat> ){
+export default function SightedCatMap( {catSightings}: any ){
     const position = { lat: -41.285575, lng: 174.763563}
     //const anotherPosition = {lat: -41.298924, lng: 174.785708}
-    //const sightings = {catSightings}
-    //console.log("Id : " + sightings)
     const apikey = import.meta.env.VITE_MAPS_API_KEY 
-    
+    //console.log("catSightings : " + JSON.stringify(catSightings) )
+    //const sightings = catSightings.catSightings
     return (
     <><APIProvider apiKey={apikey} >
         <div style={{height:"75vh", width:"100%"}} >
-        <Map zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID} > 
-        {catSightings.map((sighting) => {
-        {return (<><Markers sighting={sighting}/></>)}
+        <Map key={catSightings[0].cat_id_mc + 100} zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID} > 
+        {catSightings.map((sighting: any) => {
+        {return (<><Markers key={sighting.sighted_cat_id} sighting={sighting}/></>)}
         })}
         </Map> 
         </div>
@@ -33,7 +32,7 @@ export default function GoogleMap( {catSightings}: Array<SightedCat> ){
 }
 
 
-const Markers = ( {sighting} : SightedCat ) => {
+const Markers = ( {sighting} : any ) => {
     //console.log({sighting})
     const [open, setOpen] = useState(false) 
     const [markerRef, marker] = useAdvancedMarkerRef()
@@ -49,7 +48,7 @@ const Markers = ( {sighting} : SightedCat ) => {
                 position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
                 <span style={{ fontSize:"2rem"}}>🐈‍</span>
             </AdvancedMarker> 
-            {open && (<InfoWindow anchor={marker} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
+            {open && (<InfoWindow anchor={marker} key={sighting.sighted_cat_id + 500} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
                 </InfoWindow> )}
             </>
     )

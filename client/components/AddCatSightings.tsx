@@ -1,8 +1,9 @@
 //AddCatSighting.tsx
-import GoogleMap from './GoogleMap'
+import SightedCatMap from './SightedCatMap'
+import Location from './Location'
 
 import { useState, useRef, useEffect } from 'react'
-import { StandaloneSearchBox, LoadScript } from '@react-google-maps/api'
+//import { StandaloneSearchBox, LoadScript } from '@react-google-maps/api'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { addCatSightingApi, getCatSightingsApi } from '../apis/api-cats'
 import { useParams } from 'react-router-dom'
@@ -15,6 +16,8 @@ import logoSrc from '../images/MP-Logo-Black.svg'
 const emptySighting = {
   location: '',
   stringLocation: '',
+  lat: '',
+  lng: '',
   dateSeen: '',
   color: '',
   description: '',
@@ -30,9 +33,10 @@ export default function AddCatSightings() {
   const formData = new FormData()
   const [file, setFile] = useState('')
   const { catIdMc } = useParams()
+  const apikey = import.meta.env.VITE_MAPS_API_KEY 
 
   // MAPS
-  const inputRef = useRef()
+  const [locationField, setLocationField] = useState('')
 
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
 
@@ -44,19 +48,17 @@ export default function AddCatSightings() {
     return () => clearTimeout(timer) // Cleanup the timer on component unmount
   }, [])
 
-  const handlePlaceChange = () => {
-    const [place] = inputRef.current.getPlaces()
-    if (place) {
-      // console.log(place.formatted_address)
-      // console.log(place.geometry.location.lat())
-      // console.log(place.geometry.location.lng())
-      const latString = place.geometry.location.lat().toString()
-      const lngString = place.geometry.location.lng().toString()
-      formFields.location = latString + ', ' + lngString
-      formFields.stringLocation = place.formatted_address
-      console.log(formFields)
-    }
-  }
+  // const handlePlaceChange = () => {
+  //   const [place] = inputRef.current.getPlaces()
+  //   if (place) {
+  //     const latString = place.geometry.location.lat().toString()
+  //     const lngString = place.geometry.location.lng().toString()
+  //     formFields.lat = latString
+  //     formFields.lng = lngString
+  //     formFields.stringLocation = place.formatted_address
+  //     console.log(formFields)
+  //   }
+  // }
 
   const {
     data: catsighting,
@@ -143,7 +145,7 @@ export default function AddCatSightings() {
       <section className="cat-sightings">
         <div className="cat-sightings__left">
           <div className="cat-sightings__map">
-            <GoogleMap catSightings={catsighting} />
+            <SightedCatMap catSightings={catsighting} />
           </div>
         </div>
         <div className="cat-sightings__right">
@@ -219,24 +221,7 @@ export default function AddCatSightings() {
                       >
                         LOCATION
                       </label>
-                      <LoadScript
-                        googleMapsApiKey="AIzaSyD499QbrpxctpzIhJlz48TDok-4hXTRTWw"
-                        libraries={['places']}
-                      >
-                        <StandaloneSearchBox
-                          onLoad={(ref) => (inputRef.current = ref)}
-                          onPlacesChanged={handlePlaceChange}
-                        >
-                          <input
-                            className="cat-sightings-form-input"
-                            id="location"
-                            type="text"
-                            name="location"
-                            value={formFields.location}
-                            onChange={handleInputChange}
-                          />
-                        </StandaloneSearchBox>
-                      </LoadScript>
+                      <Location Local={locationField => setLocationField(locationField)} />
                     </div>
                     <div className="cat-sightings-form__section">
                       <label
