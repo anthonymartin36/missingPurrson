@@ -1,38 +1,62 @@
 //"use client";
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import {
     APIProvider,
     Map,
     AdvancedMarker,
     InfoWindow,
+    useApiIsLoaded,
+    useApiLoadingStatus,
+    APILoadingStatus,
     useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps"
+//import {useJsApiLoader} from '@react-google-maps/api'
 import { SightedCat } from '../../models/cats'
 
-//import { fetchGoogleMapsAPIKey } from '../apis/api-map'
+interface SightedCatMapProps {
+    catSightings: SightedCat[];
+  }
 
+export default function SightedCatMap( {catSightings}: SightedCatMapProps){
+    const position = useMemo(()=> ({ lat: -41.285575, lng: 174.763563}), [])
+    const apiKey = import.meta.env.VITE_MAPS_API_KEY 
+    const catData = catSightings
+    const [mapLoaded, setMapLoaded] = useState(false)
+    // console.log("DeConstruct : " + JSON.stringify({catSightings}))
+    // console.log("Origional : " + JSON.stringify(catSightings))
+    let mapKey = self.crypto.randomUUID()
+    // const apiIsLoaded = useApiIsLoaded()
+    //console.log("mapkey : " + mapKey )
+    const apiIsLoaded = useApiIsLoaded()
+    const status = useApiLoadingStatus()
 
-export default function SightedCatMap( {catSightings}: any ){
-    const position = { lat: -41.285575, lng: 174.763563}
-    //const anotherPosition = {lat: -41.298924, lng: 174.785708}
-    const apikey = import.meta.env.VITE_MAPS_API_KEY 
-    //console.log("catSightings : " + JSON.stringify(catSightings) )
-    //const sightings = catSightings.catSightings
+    useEffect(() => {
+        if (!apiIsLoaded) return;
+        if (status === APILoadingStatus.FAILED) {
+          console.log("Google Maps API loading failed");
+          return;
+        }
+        // Handle other loading status if needed
+      }, [apiIsLoaded, status])
+
     return (
-    <><APIProvider apiKey={apikey} >
-        <div style={{height:"75vh", width:"100%"}} >
-        <Map key={catSightings[0].cat_id_mc + 100} zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID} > 
-        {catSightings.map((sighting: any) => {
-        {return (<><Markers key={sighting.sighted_cat_id} sighting={sighting}/></>)}
+    <><APIProvider apiKey={apiKey} >
+        <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >
+        <Map key={mapKey} zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID}> 
+        {catData.map((sighting: SightedCat) => {
+        {return (<><Markers key={sighting.sightedCatId + 2} sighting={sighting}/></>)}
         })}
         </Map> 
         </div>
     </APIProvider> </>)
 }
 
+interface MarkersProps {
+    sighting: SightedCat;
+  }
 
-const Markers = ( {sighting} : any ) => {
+const Markers: React.FC<MarkersProps> = ({ sighting }) => {
     //console.log({sighting})
     const [open, setOpen] = useState(false) 
     const [markerRef, marker] = useAdvancedMarkerRef()
@@ -43,12 +67,12 @@ const Markers = ( {sighting} : any ) => {
         <>
             <AdvancedMarker 
                 onClick={toggleInfoWindow}
-                key={sighting.sighted_cat_id} 
+                key={sighting.sightedCatId} 
                 ref={markerRef}
-                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
+                position={{lat: parseFloat(sighting.lat), lng: parseFloat(sighting.lng)}} > 
                 <span style={{ fontSize:"2rem"}}>🐈‍</span>
             </AdvancedMarker> 
-            {open && (<InfoWindow anchor={marker} key={sighting.sighted_cat_id + 500} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
+            {open && (<InfoWindow anchor={marker} key={sighting.sightedCatId} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 
                 </InfoWindow> )}
             </>
     )

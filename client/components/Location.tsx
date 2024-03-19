@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react"
 //import { AdvancedMarker } from "@vis.gl/react-google-maps"
-import { useLoadScript} from "@react-google-maps/api"
+import { useJsApiLoader } from "@react-google-maps/api"
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -14,23 +14,31 @@ import {
 } from "@reach/combobox"
 import '../styles/Location.css'
 
-export default function Location() {
-  const { isLoaded, loadError } = useLoadScript({
+type addressType = {address: string, lat: number, lng: number}
+
+const libraries = ["places"] as any[]
+
+export default function Location(props: any) {
+  //const [ libraries ] = useState(['places']);  
+  const { isLoaded, loadError } = useJsApiLoader({
+    //loading: async,
     googleMapsApiKey: import.meta.env.VITE_MAPS_API_KEY ,
-    libraries: ["places"],
+    libraries: libraries, 
   })
-  
-  const [selected, setSelected] = useState(null) 
-
+  const [selected, setSelected] = useState({address: '', lat:'', lng: ''})
   if (!isLoaded) return <div>Loading...</div>
-
+  if (loadError) return <div>Error...</div>
   return (
     <>
       <div className="places-container">
-        <PlacesAutocomplete setSelected={setSelected} />
+        <PlacesAutocomplete setSelected={() => props.changeAddress(ReturnAddress)} />
       </div>
     </>
   )
+}
+
+const ReturnAddress = (addressValue: addressType) => {  
+  return addressValue
 }
 
 const PlacesAutocomplete = ({ setSelected }: any) => {
@@ -42,13 +50,14 @@ const PlacesAutocomplete = ({ setSelected }: any) => {
     clearSuggestions,
   } = usePlacesAutocomplete()
 
-  const handleSelect = async (address : any) => {
+  const handleSelect = async (address : string) => {
     setValue(address, false)
     clearSuggestions()
 
     const results = await getGeocode({ address })
     const { lat, lng } = await getLatLng(results[0])
-    setSelected({ lat, lng })
+    console.log("Location Component: " + JSON.stringify({address}) + " Lat : " + lat + " Lng " + lng)
+    ReturnAddress({address, lat: lat, lng: lng})
   }
 
   return (

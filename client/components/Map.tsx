@@ -15,7 +15,7 @@ const mapOptions = {
   zoomControlOptions: { position: 3 } // Right top
 }
 
-export default function Map({ catSightings })  {
+export default function Map({ catSightings } : any)  {
   //console.log(catSightings)
   const [mapContainer, setMapContainer] = useState(null)
   const [mapLoaded, setMapLoaded] = useState(false)
@@ -48,16 +48,10 @@ export default function Map({ catSightings })  {
       if (!map || !sighting) {
         return
       }
-      //console.log('bruh')
+
   
       console.log(map)
   
-      // Clear existing markers
-      // if (markerRef.current) {
-      //   markerRef.current.setMap(null)
-      // }
-  
-      // Create markers for each sighting
       const [latString, lngString] = sighting.location.split(', ')
       const lat = parseFloat(latString.trim())
       const lng = parseFloat(lngString.trim())

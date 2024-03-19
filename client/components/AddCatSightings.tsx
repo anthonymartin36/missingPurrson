@@ -36,9 +36,11 @@ export default function AddCatSightings() {
   const apikey = import.meta.env.VITE_MAPS_API_KEY 
 
   // MAPS
-  const [locationField, setLocationField] = useState('')
-
+  // const mapKey = 12
+  // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
+  const [locationField, setLocationField] = useState({address: '12 Girton Terrace, Mount Cook, Wellington', lng: 174.780236, lat: -41.302358}) 
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,18 +49,6 @@ export default function AddCatSightings() {
 
     return () => clearTimeout(timer) // Cleanup the timer on component unmount
   }, [])
-
-  // const handlePlaceChange = () => {
-  //   const [place] = inputRef.current.getPlaces()
-  //   if (place) {
-  //     const latString = place.geometry.location.lat().toString()
-  //     const lngString = place.geometry.location.lng().toString()
-  //     formFields.lat = latString
-  //     formFields.lng = lngString
-  //     formFields.stringLocation = place.formatted_address
-  //     console.log(formFields)
-  //   }
-  // }
 
   const {
     data: catsighting,
@@ -69,10 +59,8 @@ export default function AddCatSightings() {
   })
 
   const addCatSightingMutation = useMutation({
-    mutationFn: async (sightedCat) => {
-      console.log('before Mutation')
-      await addCatSightingApi(sightedCat, Number(catIdMc))
-      console.log('after Mutation')
+    mutationFn: async (sightedCat) => {// console.log('before Mutation')
+      await addCatSightingApi(sightedCat, Number(catIdMc)) // console.log('after Mutation')
     },
     onSuccess: () => {
       console.log('working')
@@ -84,9 +72,11 @@ export default function AddCatSightings() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Location: " + formFields.location)
-    formData.append('location', formFields.location)
-    formData.append('stringLocation', formFields.stringLocation)
+    console.log("locationField : " + JSON.stringify(locationField))  
+    formData.append('location', locationField.lat + ", " + locationField.lng)
+    formData.append('lat', locationField.lat)
+    formData.append('lng', locationField.lng)
+    formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)
     formData.append('color', formFields.color)
     formData.append('description', formFields.description)
@@ -102,8 +92,7 @@ export default function AddCatSightings() {
 
   const handleInputChange = async (e: any) => {
     if (e.target.type === 'file') {
-      setFile(e.target.files[0])
-      console.log('file : ', file)
+      setFile(e.target.files[0])//console.log('file : ', file)
     } else {
       setformFields({
         ...formFields,
@@ -145,7 +134,7 @@ export default function AddCatSightings() {
       <section className="cat-sightings">
         <div className="cat-sightings__left">
           <div className="cat-sightings__map">
-            <SightedCatMap catSightings={catsighting} />
+            <SightedCatMap catSightings={catsighting}/>
           </div>
         </div>
         <div className="cat-sightings__right">
@@ -221,7 +210,7 @@ export default function AddCatSightings() {
                       >
                         LOCATION
                       </label>
-                      <Location Local={locationField => setLocationField(locationField)} />
+                      <Location changeAddress={(locationField: any) => setLocationField(locationField)}  />
                     </div>
                     <div className="cat-sightings-form__section">
                       <label
