@@ -1,4 +1,3 @@
-//"use client";
 
 import { useState, useMemo, useEffect } from "react"
 import {
@@ -34,9 +33,10 @@ export default function SightedCatMap( {catSightings}: SightedCatMapProps){
     useEffect(() => {
         if (!apiIsLoaded) return;
         if (status === APILoadingStatus.FAILED) {
-          console.log("Google Maps API loading failed");
-          return;
+          console.log("Google Maps API loading failed")
+          return
         }
+        initMap()
         // Handle other loading status if needed
       }, [apiIsLoaded, status])
 
@@ -44,12 +44,25 @@ export default function SightedCatMap( {catSightings}: SightedCatMapProps){
     <><APIProvider apiKey={apiKey} >
         <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >
         <Map key={mapKey} zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID}> 
-        {catData.map((sighting: SightedCat) => {
-        {return (<><Markers key={sighting.sightedCatId + 2} sighting={sighting}/></>)}
+        {catData.map((sighting: SightedCat, index: Number) => {
+        {return (<><div key={sighting.sightedCatId}><Markers sighting={sighting}/></div></>)}
         })}
         </Map> 
         </div>
     </APIProvider> </>)
+}
+
+
+let map: google.maps.Map;
+
+// Initialize the map
+async function initMap(): Promise<void> {
+  const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+  map = new Map(document.getElementById("catmap") as HTMLElement, {
+    center: { lat: -41.285575, lng: 174.763563 },
+    zoom: 13,
+    mapId: import.meta.env.VITE_MAP_ID
+  });
 }
 
 interface MarkersProps {
@@ -69,7 +82,7 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
                 onClick={toggleInfoWindow}
                 key={sighting.sightedCatId} 
                 ref={markerRef}
-                position={{lat: parseFloat(sighting.lat), lng: parseFloat(sighting.lng)}} > 
+                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
                 <span style={{ fontSize:"2rem"}}>🐈‍</span>
             </AdvancedMarker> 
             {open && (<InfoWindow anchor={marker} key={sighting.sightedCatId} onCloseClick={closeInfoWindow} > <p>{sighting.description} </p> 

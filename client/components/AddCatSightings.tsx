@@ -39,7 +39,7 @@ export default function AddCatSightings() {
   // const mapKey = 12
   // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
-  const [locationField, setLocationField] = useState({address: '12 Girton Terrace, Mount Cook, Wellington', lng: 174.780236, lat: -41.302358}) 
+  const [locationField, setLocationField] = useState({address: '16/259 The Terrace, Te Aro, Wellington', lng: '174.771719', lat: '-41.289570'}) 
 
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function AddCatSightings() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log("locationField : " + JSON.stringify(locationField))  
-    formData.append('location', locationField.lat + ", " + locationField.lng)
+    //formData.append('location', locationField.address)
     formData.append('lat', locationField.lat)
     formData.append('lng', locationField.lng)
     formData.append('stringLocation', locationField.address)
@@ -99,6 +99,7 @@ export default function AddCatSightings() {
         [e.target.name]: e.target.value,
       })
     }
+    //locationField and how to add 
   }
 
   if (isError) {
