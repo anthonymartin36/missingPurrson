@@ -13,11 +13,13 @@ import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
 
+type addressType = {address: string, lat: number, lng: number}
+
 const emptySighting = {
   location: '',
   stringLocation: '',
-  lat: '',
-  lng: '',
+  lat: 0,
+  lng: 0,
   dateSeen: '',
   color: '',
   description: '',
@@ -39,8 +41,11 @@ export default function AddCatSightings() {
   // const mapKey = 12
   // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
-  const [locationField, setLocationField] = useState({address: '', lng: '', lat: ''}) 
-
+  const [locationField, setLocationField] = useState({address: '16/259 The Terrace, Te Aro, Wellington', lng: 174.771749, lat: -41.289749}) 
+  const changeAddress = (msg: addressType) => {
+    console.log("Msg Address : " + msg.address + " Lat : " + msg.lat + " lng : " + msg.lng)
+    return setLocationField(msg)
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,7 +68,7 @@ export default function AddCatSightings() {
       await addCatSightingApi(sightedCat, Number(catIdMc)) // console.log('after Mutation')
     },
     onSuccess: () => {
-      console.log('working')
+      //console.log('working')
       queryClient.invalidateQueries(['sighted_cats'])
       setformFields(emptySighting)
       setFormVisibility(false)
@@ -72,10 +77,10 @@ export default function AddCatSightings() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("locationField : " + JSON.stringify(locationField))  
+    //console.log("locationField : " + JSON.stringify(locationField))  
     //formData.append('location', locationField.address)
-    formData.append('lat', locationField.lat)
-    formData.append('lng', locationField.lng)
+    formData.append('lat', JSON.parse(locationField.lat))
+    formData.append('lng', JSON.parse(locationField.lng))
     formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)
     formData.append('color', formFields.color)
@@ -100,6 +105,7 @@ export default function AddCatSightings() {
       })
     }
     //locationField and how to add 
+    //console.log("LocationField : " + JSON.stringify(locationField))
   }
 
   if (isError) {
@@ -211,7 +217,7 @@ export default function AddCatSightings() {
                       >
                         LOCATION
                       </label>
-                      <Location changeAddress={(locationField: any) => setLocationField(locationField)}  />
+                      <Location onSubmit={() => changeAddress(locationField) }  />
                     </div>
                     <div className="cat-sightings-form__section">
                       <label

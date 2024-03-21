@@ -44,7 +44,7 @@ export default function SightedCatMap( {catSightings}: SightedCatMapProps){
     <><APIProvider apiKey={apiKey} >
         <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >
         <Map key={mapKey} zoom={13} center={position} mapId={import.meta.env.VITE_MAP_ID}> 
-        {catData.map((sighting: SightedCat, index: Number) => {
+        {catData.map((sighting: SightedCat) => {
         {return (<><div key={sighting.sightedCatId}><Markers sighting={sighting}/></div></>)}
         })}
         </Map> 
