@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useEffect } from "react"
 //import { AdvancedMarker } from "@vis.gl/react-google-maps"
 import { useJsApiLoader } from "@react-google-maps/api"
 //import type { Libraries } from '@googlemaps/js-api-loader';
@@ -27,6 +27,7 @@ export default function Location(props: any) {
     libraries: libraries, 
   })
   const [selected, setSelected] = useState({address: '', lat: 0, lng: 0})
+
   const {
     ready,
     value,
@@ -35,16 +36,22 @@ export default function Location(props: any) {
     clearSuggestions,
   } = usePlacesAutocomplete()
 
+  function fixAddress (address: addressType){
+    setSelected(address)
+    return selected
+  }
+  useEffect(() => {
+    //console.log("selected: ", JSON.stringify(selected))
+    props.changeAddress(selected) // Assuming this is the correct way to update the address in your parent component
+  }, [selected])
+
   const handleSelect = async (address : string) => {
     setValue(address, false)
     clearSuggestions()
 
     const results = await getGeocode({ address })
     const { lat, lng } = await getLatLng(results[0])
-    setSelected({address, lat: lat, lng: lng})
-    console.log("selected : ", selected)
-    props.changeAddress({ address:"53B Hankey Street, Mount Cook, Wellington, New Zealand", lat: -41.30576427, lng: 174.77076460})
-    console.log("returnAddress: " + JSON.stringify(selected))
+    fixAddress({address, lat: lat, lng: lng}) //{address, lat: lat, lng: lng}
   }
   if (!isLoaded) return <div>Loading...</div>
   if (loadError) return <div>Error...</div>

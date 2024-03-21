@@ -41,11 +41,8 @@ export default function AddCatSightings() {
   // const mapKey = 12
   // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
-  const [locationField, setLocationField] = useState({address: '16/259 The Terrace, Te Aro, Wellington', lng: 174.771749, lat: -41.289749}) 
-  const changeAddress = (msg: addressType) => {
-    console.log("Msg Address : " + msg.address + " Lat : " + msg.lat + " lng : " + msg.lng)
-    return setLocationField(msg)
-  }
+  const [locationField, setLocationField] = useState({address: '', lng: 0, lat: 0}) 
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,6 +59,9 @@ export default function AddCatSightings() {
   } = useQuery<SightedCat, Error>(['sighted_cats', catIdMc], () => {
     return getCatSightingsApi(Number(catIdMc))
   })
+  useEffect(() => {
+    //console.log("LocationField : " + JSON.stringify(locationField))
+  }, [locationField])
 
   const addCatSightingMutation = useMutation({
     mutationFn: async (sightedCat) => {// console.log('before Mutation')
@@ -81,6 +81,7 @@ export default function AddCatSightings() {
     //formData.append('location', locationField.address)
     formData.append('lat', JSON.parse(locationField.lat))
     formData.append('lng', JSON.parse(locationField.lng))
+    formData.append('location', JSON.parse(locationField.lat) + ', '+ JSON.parse(locationField.lng))
     formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)
     formData.append('color', formFields.color)
@@ -217,7 +218,7 @@ export default function AddCatSightings() {
                       >
                         LOCATION
                       </label>
-                      <Location onSubmit={() => changeAddress(locationField) }  />
+                      <Location changeAddress={(locationField: addressType) => setLocationField(locationField) }  />
                     </div>
                     <div className="cat-sightings-form__section">
                       <label
