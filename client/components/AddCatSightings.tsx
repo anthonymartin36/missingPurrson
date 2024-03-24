@@ -41,7 +41,7 @@ export default function AddCatSightings() {
   // const mapKey = 12
   // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
-  const [locationField, setLocationField] = useState({address: '', lng: 0, lat: 0}) 
+  const [locationField, setLocationField] = useState({address: "", lng: 0, lat: 0}) 
   
 
   useEffect(() => {
