@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import * as db from '../db/db-cats'
 import multer from 'multer'
-import path from 'path'
+//import path from 'path'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, 'server/images/sighted_cats/')
-    return cb(null, uploadPath)
+    //const uploadPath = path.join(__dirname, )
+    return cb(null, 'server/images/sighted_cats/')
   },
   filename: function (req, file, cb) {
     return cb(null, `${file.originalname}`)

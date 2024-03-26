@@ -12,6 +12,8 @@ import SingleCat from './components/SingleCat'
 import AddMissingCat from './components/AddMissingCat'
 import AddCatSightings from './components/AddCatSightings'
 import FoundCatList from './components/FoundCatList'
+import Location from './components/Location'
+import SightedCatMap2 from './components/SightedCatMap2.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +25,7 @@ const router = createBrowserRouter(
         <Route path="addcat" element={<AddMissingCat />} />
         <Route path="sightings/:catIdMc" element={<AddCatSightings />} />
         <Route path="foundcats" element={<FoundCatList />} />
+        <Route path="SightedCatMap2" element={<SightedCatMap2/>}/>
       </Route>
     </>,
   ),

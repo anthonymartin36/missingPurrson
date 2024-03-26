@@ -47,7 +47,7 @@ export default function MissingCatList() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
-  const getImageUrlsArray = (imageUrlString) => {
+  const getImageUrlsArray = (imageUrlString: string) => {
     if (!imageUrlString) return []
     return imageUrlString.split(',').map((url) => url.trim())
   }
