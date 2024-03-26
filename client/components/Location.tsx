@@ -17,10 +17,12 @@ import {
 import '../styles/Location.css'
 
 type addressType = {address: string, lat: number, lng: number}
-
+interface LocationProps {
+  changeAddress: (locationField: addressType) => void
+}
 const libraries =  ["places"] as any[]
 
-export default function Location(props: any) {
+export default function Location({ changeAddress }: LocationProps) {
   //const libraries = ['places'] as any[]
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_MAPS_API_KEY,
@@ -41,8 +43,7 @@ export default function Location(props: any) {
     return selected
   }
   useEffect(() => {
-    //console.log("selected: ", JSON.stringify(selected))
-    props.changeAddress(selected) // Assuming this is the correct way to update the address in your parent component
+    changeAddress(selected) // Assuming this is the correct way to update the address in your parent component
   }, [selected])
 
   const handleSelect = async (address : string) => {
@@ -79,15 +80,3 @@ export default function Location(props: any) {
     </>
   )
 }
-
-// const returnAddress = (addressValue: addressType) => {  
-//   console.log("returnAddress: " + JSON.stringify(addressValue.address) + " Lat : " + addressValue.lat + " Lng " + addressValue.lng)
-//   return addressValue
-// }
-
-// const PlacesAutocomplete = (props: any) => {
-  
-
-//   return (<>
-//     )
-// }

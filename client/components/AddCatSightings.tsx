@@ -43,6 +43,9 @@ export default function AddCatSightings() {
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
   const [locationField, setLocationField] = useState({address: "", lng: 0, lat: 0}) 
   
+  const handleChangeAddress = (newLocationField: addressType) => {
+    setLocationField(newLocationField)
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -218,7 +221,7 @@ export default function AddCatSightings() {
                       >
                         LOCATION
                       </label>
-                      <Location changeAddress={(locationField: addressType) => setLocationField(locationField) }  />
+                      <Location changeAddress={handleChangeAddress}  />
                     </div>
                     <div className="cat-sightings-form__section">
                       <label

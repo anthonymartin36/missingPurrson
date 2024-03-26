@@ -10,7 +10,7 @@ import {
     APILoadingStatus,
     useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps"
-//import {useJsApiLoader} from '@react-google-maps/api'
+//import {GoogleMaps} from '@react-google-maps/api'
 import { SightedCat } from '../../models/cats'
 
 interface SightedCatMapProps {
@@ -18,7 +18,7 @@ interface SightedCatMapProps {
   }
 
 export default function SightedCatMap( {catSightings}: SightedCatMapProps){
-    const position = useMemo(()=> ({ lat: -41.285575, lng: 174.763563}), [])
+    const position = useMemo(()=> ({ lat: -41.291101, lng: 174.779485}), [])
     const apiKey = import.meta.env.VITE_MAPS_API_KEY 
     const catData = catSightings
     const [mapLoaded, setMapLoaded] = useState(false)
