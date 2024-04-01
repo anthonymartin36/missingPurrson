@@ -1,5 +1,6 @@
 export async function up(knex) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     await knex.schema.createTable('sighted_cats', (table) => {
       table.increments('sighted_cat_id').primary()
       table.integer('user_id_sc').references('users.user_id')
@@ -21,6 +22,8 @@ export async function up(knex) {
     await knex.schema.dropTable('sighted_cats')
   }
 =======
+=======
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
   await knex.schema.createTable('sighted_cats', (table) => {
     table.increments('sighted_cat_id').primary()
     table.integer('user_id_sc').references('users.user_id')
@@ -39,4 +42,7 @@ export async function up(knex) {
 export async function down(knex) {
   await knex.schema.dropTable('sighted_cats')
 }
+<<<<<<< HEAD
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
+=======
 >>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)

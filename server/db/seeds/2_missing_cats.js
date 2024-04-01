@@ -1,5 +1,6 @@
 export async function seed(knex) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     await knex('missing_cats').insert([
       {
         microchip: true,
@@ -72,6 +73,8 @@ export async function seed(knex) {
     ])
   }
 =======
+=======
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
   await knex('missing_cats').insert([
     {
       microchip: true,
@@ -143,4 +146,7 @@ export async function seed(knex) {
     },
   ])
 }
+<<<<<<< HEAD
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
+=======
 >>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)

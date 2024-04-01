@@ -2,6 +2,7 @@ import { Router } from 'express'
 import * as db from '../db/db-cats'
 import multer from 'multer'
 <<<<<<< HEAD
+<<<<<<< HEAD
 //import path from 'path'
 
 const storage = multer.diskStorage({
@@ -12,6 +13,8 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     return cb(null, `${file.originalname}`)
 =======
+=======
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
 import path from 'path'
 
 const storage = multer.diskStorage({
@@ -21,6 +24,9 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     return cb(null, `${Date.now()}_${file.originalname}`)
+<<<<<<< HEAD
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
+=======
 >>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
   },
 })
@@ -69,7 +75,11 @@ router.get('/singlecat/sighting/:catIdMc', async (req, res) => {
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default router
+=======
+export default router
+>>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
 =======
 export default router
 >>>>>>> parent of 0eb619e (image directory change, gmaps still an issue)
