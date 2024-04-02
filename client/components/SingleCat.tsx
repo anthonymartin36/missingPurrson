@@ -64,14 +64,6 @@ export default function SingleCat() {
       <section className="single-cat">
         <div className="single-cat__left">
           <div className="single-cat__img">
-            {/* {imageUrls.map((imageUrl, index) => (
-              <img
-                key={index}
-                src={`/${imageUrl}`}
-                alt={`Cat ${index + 1}`}
-                className="single-cat-img"
-              />
-            ))} */}
             <div className="single-cat__img-left">
               {imageUrls.map((imageUrl, index) => (
                 <button

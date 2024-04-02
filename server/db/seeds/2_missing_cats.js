@@ -14,7 +14,7 @@ export async function seed(knex) {
       missing_cat_phone: '022-021-2355',
       missing_cat_email: 'daniel@kingston.com',
       missing_image_url:
-        'uploads/creed-1.jpg,uploads/creed-2.jpg,uploads/creed-3.jpg,uploads/creed-4.jpg,uploads/creed-5.jpg',
+        'server/images/missing_cats/creed-1.jpg,server/images/missing_cats/creed-2.jpg,server/images/missing_cats/creed-3.jpg,server/images/missing_cats/creed-4.jpg,server/images/missing_cats/creed-5.jpg',
       cat_missing: true,
     },
     {
@@ -31,7 +31,7 @@ export async function seed(knex) {
       missing_cat_phone: '022-987-6543',
       missing_cat_email: 'owner@email.com',
       missing_image_url:
-        'uploads/edward-1.jpeg,uploads/edward-2.jpeg,uploads/edward-3.jpeg,uploads/edward-4.jpeg,uploads/edward-5.jpeg',
+        'server/images/missing_cats/edward-1.jpeg,server/images/missing_cats/edward-2.jpeg,server/images/missing_cats/edward-3.jpeg,server/images/missing_cats/edward-4.jpeg,server/images/missing_cats/edward-5.jpeg',
       cat_missing: true,
     },
     {
@@ -48,7 +48,7 @@ export async function seed(knex) {
       missing_cat_phone: '022-555-1234',
       missing_cat_email: 'chaddles.owner@email.com',
       missing_image_url:
-        'uploads/chaddles-1.jpg,uploads/chaddles-2.jpg,uploadss/chaddles-3.jpg,uploads/chaddles-4.jpeg,uploads/chaddles-5.jpg',
+        'server/images/missing_cats/chaddles-1.jpg,server/images/missing_cats/chaddles-2.jpg,server/missing_catss/chaddles-3.jpg,server/images/missing_cats/chaddles-4.jpeg,server/images/missing_cats/chaddles-5.jpg',
       cat_missing: true,
     },
     {
@@ -65,7 +65,7 @@ export async function seed(knex) {
       missing_cat_phone: '022-333-7890',
       missing_cat_email: 'butters.owner@email.com',
       missing_image_url:
-        'uploads/butters-1.jpg,uploads/butters-2.jpg,uploads/butters-3.jpg,uploads/butters-4.jpg,uploads/butters-5.jpeg',
+        'server/images/missing_cats/butters-1.jpg,server/images/missing_cats/butters-2.jpg,server/images/missing_cats/butters-3.jpg,server/images/missing_cats/butters-4.jpg,server/images/missing_cats/butters-5.jpeg',
       cat_missing: true,
     },
   ])

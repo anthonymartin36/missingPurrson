@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
-//import { AdvancedMarker } from "@vis.gl/react-google-maps"
 import { useJsApiLoader } from "@react-google-maps/api"
-//import type { Libraries } from '@googlemaps/js-api-loader';
 
 import usePlacesAutocomplete, {
   getGeocode,
