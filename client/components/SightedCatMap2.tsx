@@ -48,7 +48,7 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
     const toggleInfoWindow = () => setOpen(previousState => !previousState)
     const closeInfoWindow = () => setOpen(false)
     
-    console.log("Cat ID : " + JSON.stringify(sighting.sightedCatId + 500) )
+    //console.log("Cat ID : " + JSON.stringify(sighting.sightedCatId + 500) )
     return (
         <>
             <Marker 

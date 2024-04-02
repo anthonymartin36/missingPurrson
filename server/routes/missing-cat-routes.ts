@@ -8,10 +8,9 @@ const storage = multer.diskStorage({
     return cb(null, 'server/images/missing_cats')
   },
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}_${file.originalname}`)
+    return cb(null, `${file.originalname}`)
   },
 })
-
 const upload = multer({
   storage: storage,
   limits: {

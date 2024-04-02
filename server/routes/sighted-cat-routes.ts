@@ -5,11 +5,10 @@ import path from 'path'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, '..', 'uploads', 'sighted_cats')
-    return cb(null, uploadPath)
+    return cb(null, 'server/images/sighted_cats')
   },
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}_${file.originalname}`)
+    return cb(null, `${file.originalname}`)
   },
 })
 const upload = multer({
