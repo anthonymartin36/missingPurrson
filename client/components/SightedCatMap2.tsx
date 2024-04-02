@@ -20,18 +20,19 @@ export default function SightedCatMap2 ( {catSightings}: SightedCatMapProps) {
         height: "75vh",
     }        
     const style = { border: "1px solid black"}
-
+    let mapKey = self.crypto.randomUUID()
     if (!isLoaded) return <div>Loading...</div>
     if (loadError) return <div>Error...</div>
     
     return (<>
             <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >     
-                <GoogleMap options={{mapId: import.meta.env.VITE_MAP_ID}}
+                <GoogleMap key={mapKey}
+                options={{mapId: import.meta.env.VITE_MAP_ID}}
                 mapContainerStyle={mapsContainerStyle}
                 zoom={13}
                 center={position} >
-                {catData.map((sighting: SightedCat, i) => {
-                    {return (<><Markers key={i} sighting={sighting}/></>)}
+                {catData.map((sighting: SightedCat) => {
+                    {return (<><Markers sighting={sighting}/></>)}
                 })}
                 </GoogleMap>
             </div>
@@ -47,6 +48,7 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
     const toggleInfoWindow = () => setOpen(previousState => !previousState)
     const closeInfoWindow = () => setOpen(false)
     
+    console.log("Cat ID : " + JSON.stringify(sighting.sightedCatId + 500) )
     return (
         <>
             <Marker 
@@ -55,7 +57,7 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
                 position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
                 {/* <span style={{ fontSize:"2rem"}}>🐈‍</span> */}
                 {open && (<InfoWindow 
-                    key={sighting.sightedCatId} 
+                    key={sighting.sightedCatId + 500} 
                     onCloseClick={closeInfoWindow} > 
                     <div><p>{sighting.description} </p></div>
                  </InfoWindow> )}

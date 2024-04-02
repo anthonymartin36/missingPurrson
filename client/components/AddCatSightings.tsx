@@ -348,13 +348,13 @@ export default function AddCatSightings() {
             <div className="cat-sightings__cards">
               {catsighting.map((sighting) => (
                 <div
-                  key={sighting.sighted_cat_id}
+                  key={sighting.sightedCatId}
                   className="cat-sightings-card"
                 >
                   <div className="cat-sightings-card__top">
                     <div className="cat-sightings-card__img">
                       <img
-                        src={'/' + sighting.sighted_image_url}
+                        src={'/' + sighting.sightedImageUrl}
                         alt={sighting.name}
                         className="cat-sightings-card-img"
                       />
@@ -363,13 +363,13 @@ export default function AddCatSightings() {
                       <div className="cat-sightings-card-section">
                         <h3 className="cat-sightings-card-title">Sighted:</h3>
                         <p className="cat-sightings-card-info">
-                          {sighting.date_seen}
+                          {sighting.dateSeen}
                         </p>
                       </div>
                       <div className="cat-sightings-card-section">
                         <h3 className="cat-sightings-card-title">Location:</h3>
                         <p className="cat-sightings-card-info">
-                          {sighting.string_location}
+                          {sighting.stringLocation}
                         </p>
                       </div>
                       <div className="cat-sightings-card-section">

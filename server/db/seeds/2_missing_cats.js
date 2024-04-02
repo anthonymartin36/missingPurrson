@@ -48,7 +48,7 @@ export async function seed(knex) {
       missing_cat_phone: '022-555-1234',
       missing_cat_email: 'chaddles.owner@email.com',
       missing_image_url:
-        'server/images/missing_cats/chaddles-1.jpg,server/images/missing_cats/chaddles-2.jpg,server/missing_catss/chaddles-3.jpg,server/images/missing_cats/chaddles-4.jpeg,server/images/missing_cats/chaddles-5.jpg',
+        'server/images/missing_cats/chaddles-1.jpg,server/images/missing_cats/chaddles-2.jpg,server/images/missing_cats/chaddles-3.jpg,server/images/missing_cats/chaddles-4.jpeg,server/images/missing_cats/chaddles-5.jpg',
       cat_missing: true,
     },
     {

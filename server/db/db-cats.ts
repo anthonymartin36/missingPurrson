@@ -173,7 +173,19 @@ export async function singleCatSightingsDb(
 ): Promise<SightedCat[]> {
   try {
     const sightedCats = await db('sighted_cats')
-      .select()
+      .select('sighted_cat_id as sightedCatId',
+      'user_id_sc as userIdSc',
+      'cat_id_mc as catIdMc',
+      'color',
+      'description',
+      'date_seen as dateSeen',
+      'location',
+      'lng',
+      'lat',
+      'string_location as stringLocation',
+      'sighted_cat_phone as sightedCatPhone',
+      'sighted_cat_email as sightedCatEmail',
+      'sighted_image_url as sightedImageUrl',)
       .where('cat_id_mc', cat_id_mc)
 
     return sightedCats || []
