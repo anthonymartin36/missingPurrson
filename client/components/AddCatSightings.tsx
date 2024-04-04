@@ -1,5 +1,5 @@
 //AddCatSighting.tsx
-import SightedCatMap from './SightedCatMap2'
+import SightedCatMap from './SightedCatMap'
 import Location from './Location'
 
 import { useState, useRef, useEffect } from 'react'
