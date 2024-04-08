@@ -87,7 +87,7 @@ export default function AddCatSightings() {
     //formData.append('location', locationField.address)
     formData.append('lat', JSON.parse(locationField.lat))
     formData.append('lng', JSON.parse(locationField.lng))
-    formData.append('location', JSON.parse(locationField.lat) + ', '+ JSON.parse(locationField.lng))
+    formData.append('location', locationField.lat + ', '+ locationField.lng)
     formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)
     formData.append('color', formFields.color)

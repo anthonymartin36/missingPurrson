@@ -44,6 +44,8 @@ router.get('/singlecat/sighting/:catIdMc', async (req, res) => {
   try {
     const catIdMc = Number(req.params.catIdMc)
     const sightedCat = await db.singleCatSightingsDb(catIdMc)
+    // console.log("Sighted Cat Date Route : " + typeof(sightedCat[0].dateSeen))
+    // console.log("Sighted Cat Lat Route : " + typeof(sightedCat[0].lat))
     if (!sightedCat) {
       res.status(404).json({ error: 'id could not be found' })
       return

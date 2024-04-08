@@ -37,7 +37,7 @@ export interface SightedCat {
   catIdMc: number
   color: string
   description: string
-  dateSeen: Date
+  dateSeen: string 
   lng: string
   lat: string
   location: string

@@ -49,7 +49,7 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
     const toggleInfoWindow = () => setOpen(previousState => !previousState)
     const closeInfoWindow = () => setOpen(false)
     const options = {icon: "../client/images/favicon-32x32.png"}
-    //console.log("Cat ID : " + JSON.stringify(sighting.sightedCatId + 500) )
+    //console.log("Cat Date Seen : " + typeof(sighting.dateSeen) )
     return (
         <>
             <Marker 
@@ -60,7 +60,12 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
                 {open && (<InfoWindow 
                     key={sighting.sightedCatId + 500} 
                     onCloseClick={closeInfoWindow} > 
-                    <div><p>{sighting.description} </p></div>
+
+                    <div id="catmap-data" className="catmap-data" >
+                        <p><b>Description : </b>{sighting.description} </p>
+                        <p><b>Date : </b>{sighting.dateSeen}</p>
+                        <p><b>Color : </b>{sighting.color}</p>
+                    </div>
                  </InfoWindow> )}
             </Marker> 
         </>

@@ -61,15 +61,14 @@ export async function deleteMissingCatApi(missingCatId: number) {
 
 // GET sightings for a particular cat (/api/v1/sightedcats/singlecat/sighting/:catIdMc)
 
-export async function getCatSightingsApi(catIdMc: number) {
+export async function getCatSightingsApi(catIdMc: number): Promise<SightedCat> {
   try {
     const response = await request.get(
       `${rootUrl}/sightedcats/singlecat/sighting/${catIdMc}`,
     )
     return response.body
   } catch (error) {
-    console.error('Error fetching cat sightings', error)
-    return { error: 'Failed to fetch cat sightings' }
+    throw console.error('Failed to fetch cat sightings', error) 
   }
 }
 
