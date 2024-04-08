@@ -11,6 +11,7 @@ interface SightedCatMapProps {
 export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
     const position = {lat: -41.291101, lng: 174.779485}
     const catData = catSightings
+    const data = (catData === undefined) ? false : true
     const { isLoaded, loadError} = useJsApiLoader ({
         googleMapsApiKey: import.meta.env.VITE_MAPS_API_KEY,
         libraries: libraries,
@@ -26,12 +27,12 @@ export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
     
     return (<>
             <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >     
-                <GoogleMap key={catData[0].sightedCatId || 1}
+                <GoogleMap 
                 options={{mapId: import.meta.env.VITE_MAP_ID}}
                 mapContainerStyle={mapsContainerStyle}
                 zoom={13}
                 center={position} >
-                {catData.map((sighting: SightedCat) => {
+                {data && catData.map((sighting: SightedCat) => {
                     {return (<><Markers sighting={sighting}/></>)}
                 })}
                 </GoogleMap>
