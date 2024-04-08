@@ -8,7 +8,7 @@ interface SightedCatMapProps {
     catSightings: SightedCat[];
   }
 
-export default function SightedCatMap2 ( {catSightings}: SightedCatMapProps) {
+export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
     const position = {lat: -41.291101, lng: 174.779485}
     const catData = catSightings
     const { isLoaded, loadError} = useJsApiLoader ({
@@ -26,7 +26,7 @@ export default function SightedCatMap2 ( {catSightings}: SightedCatMapProps) {
     
     return (<>
             <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >     
-                <GoogleMap key={mapKey}
+                <GoogleMap key={catData[0].sightedCatId || 1}
                 options={{mapId: import.meta.env.VITE_MAP_ID}}
                 mapContainerStyle={mapsContainerStyle}
                 zoom={13}
@@ -47,15 +47,15 @@ const Markers: React.FC<MarkersProps> = ({ sighting }) => {
     const [open, setOpen] = useState(false) 
     const toggleInfoWindow = () => setOpen(previousState => !previousState)
     const closeInfoWindow = () => setOpen(false)
-    
+    const options = {icon: "../client/images/favicon-32x32.png"}
     //console.log("Cat ID : " + JSON.stringify(sighting.sightedCatId + 500) )
     return (
         <>
             <Marker 
                 onClick={toggleInfoWindow}
                 key={sighting.sightedCatId} 
-                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} > 
-                {/* <span style={{ fontSize:"2rem"}}>🐈‍</span> */}
+                position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} 
+                options={options} > 
                 {open && (<InfoWindow 
                     key={sighting.sightedCatId + 500} 
                     onCloseClick={closeInfoWindow} > 

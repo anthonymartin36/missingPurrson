@@ -28,6 +28,9 @@ const emptySighting = {
   sightedImgUrl: '',
 }
 
+interface SightedCatMapProps {
+  catSightings: SightedCat[];
+}
 export default function AddCatSightings() {
   const queryClient = useQueryClient()
   const [formFields, setformFields] = useState(emptySighting)
@@ -145,7 +148,7 @@ export default function AddCatSightings() {
       <section className="cat-sightings">
         <div className="cat-sightings__left">
           <div className="cat-sightings__map">
-            <SightedCatMap catSightings={catsighting}/>
+            <SightedCatMap catSightings={catsighting} />
           </div>
         </div>
         <div className="cat-sightings__right">
