@@ -5,7 +5,7 @@ import {GoogleMap, useJsApiLoader, Marker, InfoWindow} from "@react-google-maps/
 
 const libraries = ["places"] as any[]
 interface SightedCatMapProps {
-    catSightings: SightedCat[];
+    catSightings: SightedCat[]
   }
 
 export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
@@ -27,7 +27,7 @@ export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
     
     return (<>
             <div  id="catmap" className="catmap" style={{height:"75vh", width:"100%"}} >     
-                <GoogleMap 
+                <GoogleMap key={'map-{$mapKey}'}
                 options={{mapId: import.meta.env.VITE_MAP_ID}}
                 mapContainerStyle={mapsContainerStyle}
                 zoom={13}

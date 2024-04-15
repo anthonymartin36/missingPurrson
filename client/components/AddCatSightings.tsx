@@ -83,10 +83,10 @@ export default function AddCatSightings() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    //console.log("locationField : " + JSON.stringify(locationField))  
-    //formData.append('location', locationField.address)
-    formData.append('lat', JSON.parse(locationField.lat))
-    formData.append('lng', JSON.parse(locationField.lng))
+    //console.log("Lat", typeof(locationField.lat))
+    formData.append('location', locationField.address)
+    formData.append('lat', locationField.lat)
+    formData.append('lng', locationField.lng)
     formData.append('location', locationField.lat + ', '+ locationField.lng)
     formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)

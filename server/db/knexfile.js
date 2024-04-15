@@ -1,5 +1,9 @@
 import * as Path from 'node:path'
 import * as URL from 'node:url'
+import dotenv from 'dotenv'
+dotenv.config()
+
+//console.dir(process.env)
 
 const __filename = URL.fileURLToPath(import.meta.url)
 const __dirname = Path.dirname(__filename)
