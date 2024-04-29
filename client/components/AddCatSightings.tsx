@@ -366,7 +366,7 @@ export default function AddCatSightings() {
                       <div className="cat-sightings-card-section">
                         <h3 className="cat-sightings-card-title">Sighted:</h3>
                         <p className="cat-sightings-card-info">
-                          {sighting.dateSeen}
+                          {sighting.dateSeen.slice(0,10)}
                         </p>
                       </div>
                       <div className="cat-sightings-card-section">

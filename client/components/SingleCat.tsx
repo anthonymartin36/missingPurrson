@@ -120,7 +120,7 @@ export default function SingleCat() {
             <div className="single-cat__section">
               <h3 className="single-cat-info-heading">Last Seen</h3>
               <p className="single-cat-info-body">
-                {missingcats.dateLost.toString()}
+                {missingcats.dateLost.toString().slice(0,10)}
               </p>
             </div>
             <div className="single-cat__section">
