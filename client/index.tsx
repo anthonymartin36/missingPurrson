@@ -17,3 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     </QueryClientProvider>,
   )
 })
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// )

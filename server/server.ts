@@ -24,14 +24,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // New route to fetch Google Maps API key
-server.get('/api/getGoogleMapsKey', (req, res) => {
-  const googleMapsAPIKey = process.env.GOOGLE_MAPS_API_KEY
-
-  if (googleMapsAPIKey) {
-    res.json({ apiKey: googleMapsAPIKey })
-  } else {
-    res.status(500).json({ error: 'Google Maps API key not found.' })
-  }
-})
 
 export default server
