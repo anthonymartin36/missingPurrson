@@ -26,11 +26,18 @@
     ]
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.3",
+    "@auth0/auth0-react": "^2.2.4",
+    "@reach/auto-id": "^0.18.0",
     "@reach/combobox": "^0.18.0",
-    "@react-google-maps/api": "^2.19.2",
+    "@reach/observe-rect": "^1.2.0",
+    "@reach/polymorphic": "^0.18.0",
+    "@reach/popover": "^0.18.0",
+    "@reach/portal": "^0.18.0",
+    "@reach/rect": "^0.18.0",
+    "@reach/utils": "^0.18.0",
+    "@react-google-maps/api": "^2.19.3",
     "@ubilabs/google-maps-react-hooks": "^2.0.2",
-    "@vis.gl/react-google-maps": "^0.4.1",
+    "@vis.gl/react-google-maps": "^0.4.3",
     "auth0": "^4.1.0",
     "authenticate": "^0.1.5",
     "dotenv": "^16.3.1",
@@ -43,7 +50,8 @@
     "sqlite3": "^5.1.6",
     "superagent": "7.1.1",
     "use-history": "^1.4.1",
-    "use-places-autocomplete": "^4.0.1"
+    "use-places-autocomplete": "^4.0.1",
+    "use-sync-external-store": "^1.2.2"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.9.1",
