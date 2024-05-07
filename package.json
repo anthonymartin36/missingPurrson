@@ -29,6 +29,7 @@
     "@auth0/auth0-react": "^2.2.4",
     "@reach/auto-id": "^0.18.0",
     "@reach/combobox": "^0.18.0",
+    "@reach/descendants": "^0.18.0",
     "@reach/observe-rect": "^1.2.0",
     "@reach/polymorphic": "^0.18.0",
     "@reach/popover": "^0.18.0",
