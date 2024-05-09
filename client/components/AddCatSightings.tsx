@@ -75,7 +75,7 @@ export default function AddCatSightings() {
   }, [locationField])
 
   const addCatSightingMutation = useMutation({
-    mutationFn: async (sightedCat: any) => {
+    mutationFn: async (sightedCat: NewSightedCat) => {
       await addCatSightingApi(sightedCat, Number(catIdMc))
     },
     onSuccess: () => {
