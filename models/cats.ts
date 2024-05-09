@@ -47,6 +47,21 @@ export interface SightedCat {
   sightedImageUrl: string
 }
 
+export interface NewSightedCat {
+  //userIdSc: number
+  catIdMc: number
+  color: string
+  description: string
+  dateSeen: string 
+  lng: string
+  lat: string
+  location: string
+  stringLocation: string
+  sightedCatPhone: string
+  sightedCatEmail: string
+  sightedImageUrl: string
+}
+
 export interface SightedCatArray {
   sightedCatId: number
   userIdSc: number

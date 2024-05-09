@@ -7,9 +7,8 @@ import { useState, useRef, useEffect } from 'react'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { addCatSightingApi, getCatSightingsApi } from '../apis/api-cats'
 import { useParams } from 'react-router-dom'
-import { SightedCat } from '../../models/cats'
+import { SightedCat, NewSightedCat } from '../../models/cats'
 import { Link } from 'react-router-dom'
-//import * as dotenv from 'dotenv'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
 
@@ -40,9 +39,6 @@ export default function AddCatSightings() {
   const { catIdMc } = useParams()
   const apikey = import.meta.env.VITE_MAPS_API_KEY 
 
-  // MAPS
-  // const mapKey = 12
-  // console.log("Map Key : " + mapKey)
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
   const [locationField, setLocationField] = useState({address: "", lng: 0, lat: 0}) 
   
@@ -58,23 +54,31 @@ export default function AddCatSightings() {
     return () => clearTimeout(timer) // Cleanup the timer on component unmount
   }, [])
 
+  // const {
+  //   data: catsighting,
+  //   isLoading,
+  //   isError,
+  // } = useQuery(['sighted_cats', catIdMc], () => {
+  //   return getCatSightingsApi(Number(catIdMc))
+  // })
   const {
     data: catsighting,
     isLoading,
     isError,
-  } = useQuery<SightedCat, Error>(['sighted_cats', catIdMc], () => {
-    return getCatSightingsApi(Number(catIdMc))
+  } = useQuery({
+    queryKey: ['sighted_cats', catIdMc],
+    queryFn: () => getCatSightingsApi(Number(catIdMc)),
   })
+
   useEffect(() => {
     //console.log("LocationField : " + JSON.stringify(locationField))
   }, [locationField])
 
   const addCatSightingMutation = useMutation({
-    mutationFn: async (sightedCat) => {// console.log('before Mutation')
-      await addCatSightingApi(sightedCat, Number(catIdMc)) // console.log('after Mutation')
+    mutationFn: async (sightedCat: any) => {
+      await addCatSightingApi(sightedCat, Number(catIdMc))
     },
     onSuccess: () => {
-      //console.log('working')
       queryClient.invalidateQueries(['sighted_cats'])
       setformFields(emptySighting)
       setFormVisibility(false)

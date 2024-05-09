@@ -25,8 +25,9 @@ export default function SingleCat() {
     data: missingcats,
     isLoading,
     isError,
-  } = useQuery<MissingCat, Error>(['missing_cats', catId], () => {
-    return getOneMissingCatApi(Number(catId))
+  } = useQuery({
+    queryKey: ['missing_cats', catId],
+    queryFn: () => getOneMissingCatApi(Number(catId)),
   })
 
   if (isError) {
