@@ -16,7 +16,7 @@ server.use('/api/v1/sightedcats', sightedCatRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
-  server.use('/uploads', express.static('server/uploads'))
+  server.use('/images', express.static('server/images'))
   server.use('/assets', express.static(Path.resolve('./dist/assets')))
   server.get('*', (req, res) => {
     res.sendFile(Path.resolve('./dist/index.html'))
