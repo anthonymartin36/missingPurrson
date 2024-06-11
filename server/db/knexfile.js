@@ -12,7 +12,7 @@ export default {
   development: {
     client: 'pg', // change from pg / postgresql // client: 'sqlite3',
     useNullAsDefault: true,
-    connection: process.env.DATABASE_URL_LOCAL,
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: "./migrations", 
       schemaName: 'public', // Add this line to specify the schema
