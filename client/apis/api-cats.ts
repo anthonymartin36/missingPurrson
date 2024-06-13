@@ -2,7 +2,8 @@
 
 import request from 'superagent'
 import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
-const rootUrl = '/api/v1'
+const rootUrl = import.meta.env.VITE_API_URL //|| 'https://cocktail-z2ed.onrender.com/api/v1/cocktails/'
+
 
 // ----- MISSING CATS ----- //
 
