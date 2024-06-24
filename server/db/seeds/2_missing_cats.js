@@ -25,7 +25,7 @@ export async function seed(knex) {
       breed: 'Persian',
       color: 'White/Brown',
       description:
-        "Edward, a charming Persian cat with a luxurious white and brown coat, has gone missing. Known for his regal appearance and friendly demeanor, Edward was last seen in the Parkside neighborhood. He has a distinctive fluffy tail and bright, expressive eyes. If you have any information, please contact [Owner's Phone Number].",
+        "Edward, a charming Persian cat with a luxurious white and brown coat, has gone missing. Known for his regal appearance and friendly demeanor, Edward was last seen in the Parkside neighborhood. He has a distinctive fluffy tail and bright.",
       date_lost: '2022-02-20',
       location: 'Ponsonby, Auckland',
       missing_cat_phone: '022-987-6543',
@@ -42,7 +42,7 @@ export async function seed(knex) {
       breed: 'Domestic',
       color: 'Black',
       description:
-        "Chaddles, a sleek and mysterious black Domestic cat, has gone missing in the Willowdale area. Chaddles is known for being both independent and affectionate. If you have any information about Chaddles' whereabouts, please contact [Owner's Phone Number].",
+        "Chaddles, a sleek and mysterious black Domestic cat, has gone missing in the Willowdale area. Chaddles is known for being both independent and affectionate.",
       date_lost: '2022-08-05',
       location: 'Kilbirnie, Wellington',
       missing_cat_phone: '022-555-1234',
@@ -59,7 +59,7 @@ export async function seed(knex) {
       breed: 'Domestic',
       color: 'Ginger',
       description:
-        "Butters, an adorable ginger Domestic cat, is currently missing in the Riverside neighborhood. Butters is known for being playful and friendly, with a distinctive orange fur coat. If you have any information about Butters' location, please contact [Owner's Phone Number].",
+        "Butters, an adorable ginger Domestic cat, is currently missing in the Riverside neighborhood. Butters is known for being playful and friendly, with a distinctive orange fur coat.",
       date_lost: '2022-11-10',
       location: 'Tui Park, Beach Haven',
       missing_cat_phone: '022-333-7890',
