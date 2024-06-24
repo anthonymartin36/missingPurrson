@@ -5,7 +5,7 @@ import multer from 'multer'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    return cb(null, 'server/images/missing_cats')
+    return cb(null, 'public/images/missing_cats')
   },
   filename: function (req, file, cb) {
     return cb(null, `${file.originalname}`)
@@ -69,7 +69,7 @@ router.post('/addcat', upload.array('file', 5), async (req, res) => {
     }
 
     const missingImageUrls = (req.files as Express.Multer.File[])
-      .map((file) => 'server/images/missing_cats/' + file.filename)
+      .map((file) => 'images/missing_cats/' + file.filename)
       .join(',')
 
     const newCat = await db.addMissingCatDb({

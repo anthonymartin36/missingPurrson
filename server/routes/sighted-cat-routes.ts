@@ -5,7 +5,7 @@ import path from 'path'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    return cb(null, 'server/images/sighted_cats')
+    return cb(null, 'public/images/sighted_cats')
   },
   filename: function (req, file, cb) {
     return cb(null, `${file.originalname}`)
@@ -30,7 +30,7 @@ router.post('/:catIdMc/add', upload.single('file'), async (req, res) => {
     const newCat = await db.addSightedCatDb({
       ...req.body,
       catIdMc: Number(catIdMc),
-      sightedImageUrl: 'server/images/sighted_cats/' + req.file.filename,
+      sightedImageUrl: 'public/images/sighted_cats/' + req.file.filename,
     })
     res.status(201).json(newCat)
   } catch (err) {

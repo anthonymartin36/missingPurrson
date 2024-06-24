@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
+import { getImageURL } from '../utils/image_utils'
 
 export default function FoundCatList() {
   const {
@@ -48,10 +49,10 @@ export default function FoundCatList() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
-  const getImageUrlsArray = (imageUrlString) => {
+  const getImageUrlsArray = (imageUrlString: string) => {
     if (!imageUrlString) return []
-    return imageUrlString.split(',').map((url) => url.trim())
-  }
+    const url = imageUrlString.split(',').map((url) => url.trim())
+    return getImageURL(url[0])}
 
   const filteredFoundCats = missingcats.filter((cat) => cat.catMissing == false)
 

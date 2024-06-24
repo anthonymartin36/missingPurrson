@@ -4,6 +4,7 @@ import { getAllMissingCatsApi } from '../apis/api-cats'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
+import { getImageURL } from '../utils/image_utils'
 
 export default function MissingCatList() {
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
@@ -51,7 +52,11 @@ export default function MissingCatList() {
     if (!imageUrlString) return []
     return imageUrlString.split(',').map((url) => url.trim())
   }
-
+  const getFirstImageUrl = (imageUrlString: string) => {
+    if (!imageUrlString) return null
+    const urls = imageUrlString.split(',').map((url) => url.trim())
+    return getImageURL(urls[0])
+}
   const filteredMissingCats = missingcats.filter((cat) => cat.catMissing)
 
   return (
@@ -110,11 +115,11 @@ export default function MissingCatList() {
 
           <div className="cats__cards">
             {filteredMissingCats.length > 0 ? (
-              filteredMissingCats.map((cat) => (
+              filteredMissingCats.map((cat) => ( //   
                 <div key={cat.catId} className="cats-card">
                   <div className="cats-card__img">
                     <img
-                      src={`/${getImageUrlsArray(cat.missingImageUrl)[0]}`}
+                      src={`${getFirstImageUrl(cat.missingImageUrl)}`} 
                       alt={cat.catName}
                       className="cats-card-img"
                     />
