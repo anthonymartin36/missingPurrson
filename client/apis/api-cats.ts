@@ -9,7 +9,6 @@ const rootUrl = '/api/v1' || import.meta.env.VITE_API_URL
 // GET all missing cats (/api/v1/missingcats)
 
 export async function getAllMissingCatsApi(): Promise<MissingCat[]> {
-  console.log("API URL : ", rootUrl )
   try {
     const response = await request.get(`${rootUrl}/missingcats`)
     return response.body

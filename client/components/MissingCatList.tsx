@@ -52,13 +52,12 @@ export default function MissingCatList() {
   const borderColour = '#030303'
   const getImageUrlsArray = (imageUrlString: string) => {
     if (!imageUrlString) return []
-    // if (import.meta.env.NODE_ENV === 'development') {
-    //   return imageUrlString.split(',').map((url) => 'server/' + url.trim())
-    // }
-    // else {
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
+    }
+    else {
       return imageUrlString.split(',').map((url) => url.trim())
-      //console.log("NODE_ENV : ", process.env.NODE_ENV)
-    //}
+    }
   }
 
   const filteredMissingCats = missingcats.filter((cat) => cat.catMissing)

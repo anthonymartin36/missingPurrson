@@ -101,7 +101,15 @@ export default function AddCatSightings() {
       console.log('Error adding cat sighting')
     }
   }
-
+  const getImageUrl = (imageUrlString: string) => {
+    if (!imageUrlString) return []
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
+    }
+    else {
+      return imageUrlString.split(',').map((url) => url.trim())
+    }
+  }
   const handleInputChange = async (e: any) => {
     if (e.target.type === 'file') {
       setFile(e.target.files[0])//console.log('file : ', file)
@@ -357,7 +365,7 @@ export default function AddCatSightings() {
                   <div className="cat-sightings-card__top">
                     <div className="cat-sightings-card__img">
                       <img
-                        src={'/' + sighting.sightedImageUrl}
+                        src={'/' + getImageUrl(sighting.sightedImageUrl)}
                         alt={sighting.description}
                         className="cat-sightings-card-img"
                       />
