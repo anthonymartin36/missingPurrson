@@ -8,12 +8,14 @@ interface NavColor {
   backgroundColour: string
   itemColour: string
   borderColour: string
+  navLogoSrc: string
 }
 
 export default function Nav({
   backgroundColour,
   itemColour,
   borderColour,
+  navLogoSrc,
 }: NavColor) {
   const navStyle = {
     background: backgroundColour,
@@ -40,13 +42,15 @@ export default function Nav({
     navigate('/registeruser')
 
   }
+
+  const navLogo = navLogoSrc
   return (
     <header>
       <nav className="nav" style={navStyle}>
         <div className="nav__left">
           <div className="nav__logo">
             <img
-              src="/client/images/MP-Logo-White.svg"
+              src={navLogo}
               alt="Missing Purrson Logo"
               className="nav-logo"
             />

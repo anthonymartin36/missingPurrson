@@ -69,8 +69,9 @@ export async function addMissingCatDb(
   newCat: NewMissingCat,
 ): Promise<MissingCat[]> {
   try {
-    const [newCatId] = await connection('missing_cats').insert({
-      microchip: newCat.microchip,
+    const microchip = (newCat.microchip === 'yes') ? true : false
+    const [{ cat_id: newCatId }] = await connection('missing_cats').insert({
+      microchip: microchip,
       microchip_number: newCat.microChipNumber,
       user_id_mc: newCat.userIdMc,
       cat_name: newCat.catName,
@@ -83,8 +84,8 @@ export async function addMissingCatDb(
       missing_cat_email: newCat.missingCatEmail,
       missing_image_url: newCat.missingImageUrl,
       cat_missing: newCat.catMissing,
-    })
-
+    }).returning('cat_id')
+    //console.log("newCatId : ", newCatId)
     const newAddedCat = await getOneMissingCatDb(newCatId)
     return newAddedCat
   } catch (error) {
@@ -106,6 +107,9 @@ export async function getAllSightedCatsDb(
     'description',
     'date_seen as dateSeen',
     'location',
+    'lng',
+    'lat',
+    'string_location as stringLoaction',
     'sighted_cat_phone as sightedCatPhone',
     'sighted_cat_email as sightedCatEmail',
     'sighted_image_url as sightedImageUrl',
@@ -125,6 +129,9 @@ export async function getOneSightedCatDb(
       'description',
       'date_seen as dateSeen',
       'location',
+      'lng',
+      'lat',
+      'string_location as stringLoaction',
       'sighted_cat_phone as sightedCatPhone',
       'sighted_cat_email as sightedCatEmail',
       'sighted_image_url as sightedImageUrl',
@@ -134,21 +141,23 @@ export async function getOneSightedCatDb(
 }
 
 export async function addSightedCatDb(
-  newCat: NewSightedCat,
-  db = connection,
+  newCat: NewSightedCat
 ): Promise<SightedCat[]> {
   try {
-    const [newCatId] = await db('sighted_cats').insert({
+    const [{sighted_cat_id: newCatId}] = await connection('sighted_cats').insert({
       user_id_sc: newCat.userIdSc,
       cat_id_mc: newCat.catIdMc,
       color: newCat.color,
       description: newCat.description,
       date_seen: newCat.dateSeen,
       location: newCat.location,
+      lng: newCat.lng,
+      lat: newCat.lat,
+      string_location: newCat.stringLocation,
       sighted_cat_phone: newCat.sightedCatPhone,
       sighted_cat_email: newCat.sightedCatEmail,
       sighted_image_url: newCat.sightedImageUrl,
-    })
+    }).returning('sighted_cat_id')
 
     const newAddedCat = await getOneSightedCatDb(newCatId)
     return newAddedCat
@@ -164,12 +173,39 @@ export async function singleCatSightingsDb(
 ): Promise<SightedCat[]> {
   try {
     const sightedCats = await db('sighted_cats')
-      .select()
+      .select('sighted_cat_id as sightedCatId',
+      'user_id_sc as userIdSc',
+      'cat_id_mc as catIdMc',
+      'color',
+      'description',
+      'date_seen as dateSeen',
+      'location',
+      'lng',
+      'lat',
+      'string_location as stringLocation',
+      'sighted_cat_phone as sightedCatPhone',
+      'sighted_cat_email as sightedCatEmail',
+      'sighted_image_url as sightedImageUrl',)
       .where('cat_id_mc', cat_id_mc)
 
     return sightedCats || []
   } catch (error) {
     console.error('Error. No sightings for this cat:', error)
+    throw error
+  }
+}
+
+export async function FoundCatsDb(
+  catId: number,
+  catMissing: false,
+  db = connection,
+): Promise<void> {
+  try {
+    await db('missing_cats')
+      .where({ cat_id: catId })
+      .update({ cat_missing: catMissing })
+  } catch (error) {
+    console.error('Error. No cat is found:', error)
     throw error
   }
 }

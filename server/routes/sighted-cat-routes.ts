@@ -1,17 +1,22 @@
 import { Router } from 'express'
 import * as db from '../db/db-cats'
-
 import multer from 'multer'
+import path from 'path'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     return cb(null, 'server/images/sighted_cats')
   },
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}_${file.originalname}`)
+    return cb(null, `${file.originalname}`)
   },
 })
-const upload = multer({ storage })
+const upload = multer({
+  storage: storage,
+  limits: {
+    files: 1,
+  },
+})
 const router = Router()
 
 // Post localhost:5173/api/v1/sightedcats/:catIdMc/add
@@ -39,6 +44,8 @@ router.get('/singlecat/sighting/:catIdMc', async (req, res) => {
   try {
     const catIdMc = Number(req.params.catIdMc)
     const sightedCat = await db.singleCatSightingsDb(catIdMc)
+    // console.log("Sighted Cat Date Route : " + typeof(sightedCat[0].dateSeen))
+    // console.log("Sighted Cat Lat Route : " + typeof(sightedCat[0].lat))
     if (!sightedCat) {
       res.status(404).json({ error: 'id could not be found' })
       return

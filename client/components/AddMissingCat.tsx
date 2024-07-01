@@ -17,6 +17,7 @@ const emptyCat = {
   microchip: '',
   microChipNumber: '',
   missingImageUrl: '',
+  catMissing: true,
 }
 
 export default function AddMissingCat() {
@@ -24,7 +25,8 @@ export default function AddMissingCat() {
   const queryClient = useQueryClient()
   const [formFields, setFormFields] = useState(emptyCat)
   const formData = new FormData()
-  const [file, setFile] = useState('')
+  const [files, setFiles] = useState('')
+  const [uploadedFileNames, setUploadedFileNames] = useState<string[]>([])
 
   //console.log('Received Route in Component', user)
   const addCatMutuation = useMutation({
@@ -40,6 +42,7 @@ export default function AddMissingCat() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const catMissingAsString = formFields.catMissing.toString()
     formData.append('catName', formFields.catName)
     formData.append('location', formFields.location)
     formData.append('dateLost', formFields.dateLost)
@@ -50,10 +53,11 @@ export default function AddMissingCat() {
     formData.append('missingCatEmail', formFields.missingCatEmail)
     formData.append('microchip', formFields.microchip)
     formData.append('microChipNumber', formFields.microChipNumber)
-    formData.append('file', file)
-    // console.log(formFields.microChipNumber)
-    // const formDataValues = formData.entries()
-    // console.log(formDataValues[9] + ' - ' + formDataValues[10])
+    formData.append('catMissing', catMissingAsString)
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i])
+    }
+
     try {
       addCatMutuation.mutate(formData)
     } catch (error: any) {
@@ -68,9 +72,11 @@ export default function AddMissingCat() {
         microchip: e.target.value,
       })
     } else if (e.target.name === 'file') {
-      //console.log("file : " , e.target.files[0].name)
-      setFile(e.target.files[0])
-      console.log('file : ', file)
+      setFiles([...files, ...e.target.files])
+      const newFileNames = Array.from(e.target.files).map(
+        (file: File) => file.name,
+      )
+      setUploadedFileNames([...uploadedFileNames, ...newFileNames])
     } else {
       setFormFields({
         ...formFields,
@@ -81,6 +87,7 @@ export default function AddMissingCat() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
+  const navLogo = 'client/images/MP-Logo-Black.svg'
 
   return (
     <>
@@ -88,6 +95,7 @@ export default function AddMissingCat() {
         backgroundColour={backgroundColour}
         itemColour={itemColour}
         borderColour={borderColour}
+        navLogoSrc={navLogo}
       />
       <section className="add-m-cat">
         <div className="add-m-cat__header">
@@ -99,7 +107,6 @@ export default function AddMissingCat() {
           </h2>
 
           {/* Form Starts */}
-
           <form
             className="add-m-cat-form"
             action="/addcat"
@@ -173,9 +180,6 @@ export default function AddMissingCat() {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
-            <div className="add-m-cat-form-div"></div>
-            <div className="add-m-cat-form__section">
               <div className="add-m-cat-form-section">
                 <label
                   className="add-m-cat-form-label"
@@ -192,6 +196,9 @@ export default function AddMissingCat() {
                   onChange={handleInputChange}
                 />
               </div>
+            </div>
+            <div className="add-m-cat-form-div"></div>
+            <div className="add-m-cat-form__section">
               <div className="add-m-cat-form-section">
                 <label
                   className="add-m-cat-form-label"
@@ -219,8 +226,8 @@ export default function AddMissingCat() {
                   value={formFields.microchip}
                   onChange={handleInputChange}
                 >
-                  <option value="yes">YES</option>
-                  <option value="no">NO</option>
+                  <option value="yes">NO</option>
+                  <option value="no">YES</option>
                 </select>
               </div>
               <div className="add-m-cat-form-section">
@@ -239,9 +246,6 @@ export default function AddMissingCat() {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
-            <div className="add-m-cat-form-div"></div>
-            <div className="add-m-cat-form__section">
               <div className="add-m-cat-form-section">
                 <label className="add-m-cat-form-label" htmlFor="description">
                   DESCRIPTION
@@ -257,6 +261,9 @@ export default function AddMissingCat() {
                   onChange={handleInputChange}
                 ></textarea>
               </div>
+            </div>
+            <div className="add-m-cat-form-div"></div>
+            <div className="add-m-cat-form__section">
               <div className="add-m-cat-form-section">
                 <label
                   className="add-m-cat-form-label"
@@ -271,7 +278,13 @@ export default function AddMissingCat() {
                   name="file"
                   required
                   onChange={handleInputChange}
+                  multiple
                 />
+                {uploadedFileNames.map((fileName, index) => (
+                  <p key={index}>
+                    File {index + 1}: {fileName}
+                  </p>
+                ))}
               </div>
               <div className="add-m-cat-form-section">
                 <h3 className="add-m-cat-form-label">Privacy</h3>
@@ -285,7 +298,7 @@ export default function AddMissingCat() {
                 <div className="add-m-cat-form__btn">
                   <button
                     type="submit"
-                    disabled={!file}
+                    disabled={files.length === 0}
                     className="add-cat add-m-cat-form-btn"
                   >
                     Submit

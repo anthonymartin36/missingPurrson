@@ -1,8 +1,8 @@
 //api-cats.ts
 
 import request from 'superagent'
-import { MissingCat, NewSightedCat } from '../../models/cats'
-const rootUrl = '/api/v1'
+import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
+const rootUrl = '/api/v1' || import.meta.env.VITE_API_URL 
 
 // ----- MISSING CATS ----- //
 
@@ -61,15 +61,14 @@ export async function deleteMissingCatApi(missingCatId: number) {
 
 // GET sightings for a particular cat (/api/v1/sightedcats/singlecat/sighting/:catIdMc)
 
-export async function getCatSightingsApi(catIdMc: number) {
+export async function getCatSightingsApi(catIdMc: number): Promise<SightedCat> {
   try {
     const response = await request.get(
       `${rootUrl}/sightedcats/singlecat/sighting/${catIdMc}`,
     )
     return response.body
   } catch (error) {
-    console.error('Error fetching cat sightings', error)
-    return { error: 'Failed to fetch cat sightings' }
+    throw console.error('Failed to fetch cat sightings', error) 
   }
 }
 
@@ -86,5 +85,29 @@ export async function addCatSightingApi(
     return response.body
   } catch (error) {
     console.error(`Error adding cat sighting`, error)
+  }
+}
+
+//
+export async function FoundCatsApi(catId: number, catMissing: boolean) {
+  try {
+    // Make a request to your server to update the cat status
+    const response = await request
+      .put(`${rootUrl}/missingcats/singlecat/${catId}`)
+      .send({ catMissing })
+
+    if (response.status === 200) {
+      console.log('Cat marked as found successfully!')
+      // Redirect the user to the /foundcats route
+      window.location.href = `/foundcats`
+    } else {
+      // Handle the case where the API request was successful but the cat wasn't marked as found
+      console.error('Cat could not be marked as found:', response.body)
+      throw new Error('Failed to mark cat as found')
+    }
+  } catch (error) {
+    // Handle any errors that occur during the API call
+    console.error('Error marking cat as found:', error)
+    throw new Error('Failed to mark cat as found')
   }
 }

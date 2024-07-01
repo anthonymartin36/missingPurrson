@@ -30,6 +30,3 @@ document.addEventListener('DOMContentLoaded', () => {
     </Auth0Provider>,
   )
 })
-
-//redirectUri={window.location.origin}
-//audience={import.meta.env.VITE_APP_AUTH0_AUDIENCE}
