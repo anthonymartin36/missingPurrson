@@ -87,10 +87,10 @@ export default function AddCatSightings() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    //console.log("locationField : " + JSON.stringify(locationField))  
-    //formData.append('location', locationField.address)
-    formData.append('lat', JSON.parse(locationField.lat))
-    formData.append('lng', JSON.parse(locationField.lng))
+    //console.log("Lat", typeof(locationField.lat))
+    formData.append('location', locationField.address)
+    formData.append('lat', locationField.lat)
+    formData.append('lng', locationField.lng)
     formData.append('location', locationField.lat + ', '+ locationField.lng)
     formData.append('stringLocation', locationField.address)
     formData.append('dateSeen', formFields.dateSeen)
@@ -105,7 +105,15 @@ export default function AddCatSightings() {
       console.log('Error adding cat sighting')
     }
   }
-
+  const getImageUrl = (imageUrlString: string) => {
+    if (!imageUrlString) return []
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
+    }
+    else {
+      return imageUrlString.split(',').map((url) => url.trim())
+    }
+  }
   const handleInputChange = async (e: any) => {
     if (e.target.type === 'file') {
       setFile(e.target.files[0])//console.log('file : ', file)
@@ -361,7 +369,7 @@ export default function AddCatSightings() {
                   <div className="cat-sightings-card__top">
                     <div className="cat-sightings-card__img">
                       <img
-                        src={'/' + sighting.sightedImageUrl}
+                        src={'/' + getImageUrl(sighting.sightedImageUrl)}
                         alt={sighting.description}
                         className="cat-sightings-card-img"
                       />
@@ -370,7 +378,7 @@ export default function AddCatSightings() {
                       <div className="cat-sightings-card-section">
                         <h3 className="cat-sightings-card-title">Sighted:</h3>
                         <p className="cat-sightings-card-info">
-                          {sighting.dateSeen}
+                          {sighting.dateSeen.slice(0,10)}
                         </p>
                       </div>
                       <div className="cat-sightings-card-section">

@@ -2,7 +2,7 @@
 
 import request from 'superagent'
 import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
-const rootUrl = '/api/v1'
+const rootUrl = '/api/v1' || import.meta.env.VITE_API_URL 
 
 // ----- MISSING CATS ----- //
 

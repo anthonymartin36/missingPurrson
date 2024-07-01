@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import logoSrc from '../images/MP-Logo-Black.svg'
 
+// import * as dotenv from 'dotenv'
+// dotenv.config()
+
 export default function MissingCatList() {
   const [loadingTimePassed, setLoadingTimePassed] = useState(false)
   const {
@@ -49,7 +52,12 @@ export default function MissingCatList() {
   const borderColour = '#030303'
   const getImageUrlsArray = (imageUrlString: string) => {
     if (!imageUrlString) return []
-    return imageUrlString.split(',').map((url) => url.trim())
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
+    }
+    else {
+      return imageUrlString.split(',').map((url) => url.trim())
+    }
   }
 
   const filteredMissingCats = missingcats.filter((cat) => cat.catMissing)

@@ -27,6 +27,16 @@ export default function FoundCatList() {
     return () => clearTimeout(timer) // Cleanup the timer on component unmount
   }, [])
 
+  const getImageUrlsArray = (imageUrlString: string) => {
+    if (!imageUrlString) return []
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
+    }
+    else {
+      return imageUrlString.split(',').map((url) => url.trim())
+    }
+  }
+
   if (isError) {
     return (
       <div className="loading">
@@ -48,10 +58,7 @@ export default function FoundCatList() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
-  const getImageUrlsArray = (imageUrlString) => {
-    if (!imageUrlString) return []
-    return imageUrlString.split(',').map((url) => url.trim())
-  }
+  
 
   const filteredFoundCats = missingcats.filter((cat) => cat.catMissing == false)
 
@@ -117,7 +124,7 @@ export default function FoundCatList() {
                 <div key={cat.catId} className="cats-card">
                   <div className="cats-card__img">
                     <img
-                      src={getImageUrlsArray(cat.missingImageUrl)[0]}
+                      src={`${getImageUrlsArray(cat.missingImageUrl)[0]}`}
                       alt={cat.catName}
                       className="cats-card-img"
                     />

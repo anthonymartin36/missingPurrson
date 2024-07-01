@@ -69,8 +69,9 @@ export async function addMissingCatDb(
   newCat: NewMissingCat,
 ): Promise<MissingCat[]> {
   try {
-    const [newCatId] = await connection('missing_cats').insert({
-      microchip: newCat.microchip,
+    const microchip = (newCat.microchip === 'yes') ? true : false
+    const [{ cat_id: newCatId }] = await connection('missing_cats').insert({
+      microchip: microchip,
       microchip_number: newCat.microChipNumber,
       user_id_mc: newCat.userIdMc,
       cat_name: newCat.catName,
@@ -83,8 +84,8 @@ export async function addMissingCatDb(
       missing_cat_email: newCat.missingCatEmail,
       missing_image_url: newCat.missingImageUrl,
       cat_missing: newCat.catMissing,
-    })
-
+    }).returning('cat_id')
+    //console.log("newCatId : ", newCatId)
     const newAddedCat = await getOneMissingCatDb(newCatId)
     return newAddedCat
   } catch (error) {
@@ -140,11 +141,10 @@ export async function getOneSightedCatDb(
 }
 
 export async function addSightedCatDb(
-  newCat: NewSightedCat,
-  db = connection,
+  newCat: NewSightedCat
 ): Promise<SightedCat[]> {
   try {
-    const [newCatId] = await db('sighted_cats').insert({
+    const [{sighted_cat_id: newCatId}] = await connection('sighted_cats').insert({
       user_id_sc: newCat.userIdSc,
       cat_id_mc: newCat.catIdMc,
       color: newCat.color,
@@ -157,7 +157,7 @@ export async function addSightedCatDb(
       sighted_cat_phone: newCat.sightedCatPhone,
       sighted_cat_email: newCat.sightedCatEmail,
       sighted_image_url: newCat.sightedImageUrl,
-    })
+    }).returning('sighted_cat_id')
 
     const newAddedCat = await getOneSightedCatDb(newCatId)
     return newAddedCat

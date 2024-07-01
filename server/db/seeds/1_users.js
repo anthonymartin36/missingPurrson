@@ -1,5 +1,5 @@
 export async function seed(knex) {
-  await knex('users').insert([{
+  await knex('users_table').insert([{
       user_id: 1,
       username: 'john_doe',
       password: 'hashed_password_1',

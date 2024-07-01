@@ -30,6 +30,16 @@ export default function SingleCat() {
     queryFn: () => getOneMissingCatApi(Number(catId)),
   })
 
+  const getImageString = (imageStringUrl: string) => {
+    if (!imageStringUrl) return []
+    if (import.meta.env.VITE_NODE_ENV === 'development') {
+      return 'server/' + imageStringUrl.trim()
+    }
+    else {
+      return imageStringUrl.trim()
+    }
+  }
+
   if (isError) {
     return (
       <div className="loading">
@@ -75,7 +85,7 @@ export default function SingleCat() {
                   onClick={() => setSelectedImageIndex(index)}
                 >
                   <img
-                    src={`/${imageUrl}`}
+                    src={`/${getImageString(imageUrl)}`}
                     alt={`Cat ${index + 1}`}
                     className="single-cat-btn-img"
                   />
@@ -85,7 +95,7 @@ export default function SingleCat() {
             {selectedImageIndex !== null && (
               <div className="single-cat__img-right">
                 <img
-                  src={`/${imageUrls[selectedImageIndex]}`}
+                  src={`/${getImageString(imageUrls[selectedImageIndex])}`}
                   alt={`Selected Cat`}
                   className="single-cat-img"
                 />
@@ -121,7 +131,7 @@ export default function SingleCat() {
             <div className="single-cat__section">
               <h3 className="single-cat-info-heading">Last Seen</h3>
               <p className="single-cat-info-body">
-                {missingcats.dateLost.toString()}
+                {missingcats.dateLost.toString().slice(0,10)}
               </p>
             </div>
             <div className="single-cat__section">
