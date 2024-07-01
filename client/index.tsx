@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     <Auth0Provider 
     authorizationParams={{ 
-      redirectUri: window.location.origin,
+      redirect_uri: window.location.origin,
       audience: import.meta.env.VITE_APP_AUTH0_AUDIENCE
     }}
     domain={import.meta.env.VITE_APP_AUTH0_DOMAIN} 
