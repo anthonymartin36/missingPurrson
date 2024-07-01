@@ -27,14 +27,13 @@ export default function FoundCatList() {
     return () => clearTimeout(timer) // Cleanup the timer on component unmount
   }, [])
 
-  const getImageUrl = (imageUrlString: string) => {
+  const getImageUrlsArray = (imageUrlString: string) => {
     if (!imageUrlString) return []
     if (import.meta.env.VITE_NODE_ENV === 'development') {
       return imageUrlString.split(',').map((url) => 'server/' + url.trim())
     }
     else {
       return imageUrlString.split(',').map((url) => url.trim())
-      console.log("VITE_NODE_ENV : ", process.env.VITE_NODE_ENV)
     }
   }
 
@@ -59,15 +58,7 @@ export default function FoundCatList() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
-  const getImageUrlsArray = (imageUrlString: string) => {
-    if (!imageUrlString) return []
-    if (import.meta.env.VITE_NODE_ENV === 'development') {
-      return imageUrlString.split(',').map((url) => 'server/' + url.trim())
-    }
-    else {
-      return imageUrlString.split(',').map((url) => url.trim())
-    }
-  }
+  
 
   const filteredFoundCats = missingcats.filter((cat) => cat.catMissing == false)
 
