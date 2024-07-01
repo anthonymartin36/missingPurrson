@@ -4,12 +4,13 @@ import request from 'superagent'
 import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
 const rootUrl = import.meta.env.VITE_API_URL //|| 'https://cocktail-z2ed.onrender.com/api/v1/cocktails/'
 
-
+console.log("API URL : ", rootUrl )
 // ----- MISSING CATS ----- //
 
 // GET all missing cats (/api/v1/missingcats)
 
 export async function getAllMissingCatsApi(): Promise<MissingCat[]> {
+  console.log("API URL : ", rootUrl )
   try {
     const response = await request.get(`${rootUrl}/missingcats`)
     return response.body
