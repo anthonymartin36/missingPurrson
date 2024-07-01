@@ -15,18 +15,14 @@ export default function MissingCatList() {
 
   const {
     data: missingcats,
-    isLoading: isCatLoading,
-    isError: isCatError,
+    isLoading,
+    isError,
   } = useQuery({
     queryKey: ['missing_cats'],
     queryFn: () => {
       return getAllMissingCatsApi()
     },
   })
-
-  if (isCatError) {
-    return <p>YEEEOOOWWWW! No kitties to be found!</p>
-  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
