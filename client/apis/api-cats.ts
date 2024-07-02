@@ -36,7 +36,6 @@ export async function getOneMissingCatApi(catId: number): Promise<MissingCat> {
 // ADD a missing cat (/api/v1/missingcats/addcat)
 
 export async function addMissingCatApi({ formData, token }: { formData: MissingCat, token: string }) { //, token: string
-  console.log("Token : ", token)
   try {
     const response = await request
       .post(`${rootUrl}/missingcats/addcat`)

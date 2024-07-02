@@ -61,7 +61,6 @@ export default function AddMissingCat() {
     }
 
     try {
-      console.log("Token String: " , token)
       addCatMutuation.mutate({ formData, token })
     } catch (error: any) {
       console.log('Error adding cat')
