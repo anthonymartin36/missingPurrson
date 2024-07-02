@@ -3,10 +3,13 @@ import { Request } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
 import { JwtPayload } from 'jsonwebtoken'
 import jwks from 'jwks-rsa'
-
 // TODO: set the domain and audience (API Identifier)
-const domain = 'https://dev-1ackkh7witjzru1x.us.auth0.com'
-const audience = 'https://missingPurrson/api'
+import * as dotenv from 'dotenv' // import
+
+dotenv.config() // Load environment variables from .env file
+// TODO: set the domain and audience (API Identifier)
+const domain = process.env.VITE_APP_AUTH0_DOMAIN
+const audience = process.env.VITE_APP_AUTH0_AUDIENCE
 
 const checkJwt = jwt({
   secret: jwks.expressJwtSecret({

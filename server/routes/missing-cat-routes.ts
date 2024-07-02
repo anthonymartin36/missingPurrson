@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import * as db from '../db/db-cats'
+import  checkJwt, { JwtRequest } from '../auth0.ts'
 
 import multer from 'multer'
 
@@ -61,15 +62,19 @@ router.delete('/:id', async (req, res) => {
 })
 
 // POST localhost:5173/api/v1/missingcats/addcat
-router.post('/addcat', upload.array('file', 5), async (req, res) => {
-  try {
+router.post('/addcat', upload.array('file', 5), checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+  if (!auth0Id) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }try {
     if (!req.files || req.files.length === 0) {
       res.status(400).json({ error: 'No files uploaded' })
       return
     }
 
     const missingImageUrls = (req.files as Express.Multer.File[])
-      .map((file) => 'server/images/missing_cats/' + file.filename)
+      .map((file) => 'images/missing_cats/' + file.filename)
       .join(',')
 
     const newCat = await db.addMissingCatDb({

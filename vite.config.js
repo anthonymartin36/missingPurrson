@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://mpser.onrender.com' || 'http://localhost:3000',
+      '/api': 'http://localhost:3000' || 'https://missingpurrson.onrender.com', //process.env.VITE_API_URL,
     },
   },
 })

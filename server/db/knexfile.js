@@ -10,15 +10,15 @@ const __dirname = Path.dirname(__filename)
 
 export default {
   development: {
-    client: 'pg', // change from pg / postgresql // client: 'sqlite3',
+    client: 'sqlite3',
     useNullAsDefault: true,
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      directory: "./migrations", 
-      schemaName: 'public', // Add this line to specify the schema
+    connection: {
+      filename: Path.join(__dirname, 'dev.sqlite3'),
+    },
+    pool: {
+      afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
     },
   },
-
   test: {
     client: 'sqlite3',
     useNullAsDefault: true,

@@ -2,7 +2,8 @@
 
 import request from 'superagent'
 import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
-const rootUrl = '/api/v1' || import.meta.env.VITE_API_URL 
+
+const rootUrl = '/api/v1' 
 
 // ----- MISSING CATS ----- //
 
@@ -20,6 +21,7 @@ export async function getAllMissingCatsApi(): Promise<MissingCat[]> {
 // GET one missing cat (/api/v1/missingcats/singlecat/:catId)
 
 export async function getOneMissingCatApi(catId: number): Promise<MissingCat> {
+
   try {
     const response = await request.get(
       `${rootUrl}/missingcats/singlecat/${catId}`,
@@ -33,10 +35,12 @@ export async function getOneMissingCatApi(catId: number): Promise<MissingCat> {
 
 // ADD a missing cat (/api/v1/missingcats/addcat)
 
-export async function addMissingCatApi(formData: MissingCat) {
+export async function addMissingCatApi({ formData, token }: { formData: MissingCat, token: string }) { //, token: string
+  console.log("Token : ", token)
   try {
     const response = await request
       .post(`${rootUrl}/missingcats/addcat`)
+      .set('Authorization', `Bearer ${token}`)
       .send(formData)
     return response.body
   } catch (error) {

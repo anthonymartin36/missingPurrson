@@ -30,7 +30,7 @@ router.post('/:catIdMc/add', upload.single('file'), async (req, res) => {
     const newCat = await db.addSightedCatDb({
       ...req.body,
       catIdMc: Number(catIdMc),
-      sightedImageUrl: 'server/images/sighted_cats/' + req.file.filename,
+      sightedImageUrl: 'images/sighted_cats/' + req.file.filename,
     })
     res.status(201).json(newCat)
   } catch (err) {

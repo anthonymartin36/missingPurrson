@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { addMissingCatApi } from '../apis/api-cats'
 import { useNavigate } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import Nav from './Nav'
 
@@ -27,20 +28,21 @@ export default function AddMissingCat() {
   const formData = new FormData()
   const [files, setFiles] = useState('')
   const [uploadedFileNames, setUploadedFileNames] = useState<string[]>([])
+  const { getAccessTokenSilently } = useAuth0()
 
-  //console.log('Received Route in Component', user)
-  const addCatMutuation = useMutation({
-    mutationFn: addMissingCatApi,
+  //.log('token : ', token)
+  const addCatMutuation = useMutation((data) => addMissingCatApi(data), {
     onSuccess: async (data) => {
       const { catId } = data
       queryClient.invalidateQueries(['NewMissingCat'])
       setFormFields(emptyCat)
       navigate(`/missingcats/singlecat/${catId}`)
-    },
+    }
   })
   //does the user exist
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const token = await getAccessTokenSilently() 
     e.preventDefault()
     const catMissingAsString = formFields.catMissing.toString()
     formData.append('catName', formFields.catName)
@@ -59,7 +61,8 @@ export default function AddMissingCat() {
     }
 
     try {
-      addCatMutuation.mutate(formData)
+      console.log("Token String: " , token)
+      addCatMutuation.mutate({ formData, token })
     } catch (error: any) {
       console.log('Error adding cat')
     }
