@@ -134,7 +134,7 @@ export default function FoundCatList() {
                     <h2 className="cats-card-title">{cat.catName}</h2>
                     <p className="cats-card-location">{cat.location}</p>
                     <p className="cats-card-bio">{cat.description}</p>
-                    <DeleteCat catId={`${cat.catId}`}/>
+                    <DeleteCat catId={cat.catId}/>
                 </div>
               </div>
               ))

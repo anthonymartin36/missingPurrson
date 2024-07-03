@@ -58,9 +58,9 @@ export async function deleteMissingCatDb(
   db = connection,
 ): Promise<void> {
   //delete asscoiated Sighted Cats as they are relationshipr dependant, then relete found cat.
-  let sightings = await deleteSightedMissingCatDb(id)
-  console.log("sightings removed : ", sightings)
+  
   try {
+    await deleteSightedMissingCatDb(id)
     const result = await db('missing_cats').where({ cat_id: id }).delete()
     console.log(result)
   } catch (error) {

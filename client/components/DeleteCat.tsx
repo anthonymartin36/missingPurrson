@@ -13,13 +13,11 @@ export default function DeleteCat( {catId} : props) {
   const queryClient = useQueryClient()
 
   const deleteCatMutuation = useMutation( deleteMissingCatApi, {
-    onSuccess: async (data) => {
-      const { catId } = data
+    onSuccess: async () => {
       queryClient.invalidateQueries(['MissingCat'])
       navigate(`/foundcats`)
     }
   })
-  //does the user exist
 
   const handleDelete = () => {
     try {
