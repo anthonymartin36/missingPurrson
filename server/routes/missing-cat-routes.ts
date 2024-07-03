@@ -80,7 +80,7 @@ router.post('/addcat', upload.array('file', 5), checkJwt, async (req: JwtRequest
     const newCat = await db.addMissingCatDb({
       ...req.body,
       missingImageUrl: missingImageUrls,
-    })
+    }, auth0Id)
     res.status(201).json(newCat)
   } catch (err) {
     console.error('Error in POST /api/v1/addCat', err)

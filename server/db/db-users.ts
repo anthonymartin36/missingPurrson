@@ -2,18 +2,12 @@ import connection from './connection'
 import { User, NewUser } from '../../models/user'
 
 export async function getAUserDb(
-  auth0_id: string,
+  auth0_id: any,
   db = connection,
 ): Promise<User[]> {
   return await db('users')
     .select(
-      'username',
-      'password',
-      'email',
-      'auth0_id as auth0Id',
-      'given_name', //: as givenName
-      'family_name', // as familyName
-    )
+      'user_id as userId')
     .where('auth0_id', auth0_id)
     .first()
     .returning('*')
@@ -27,10 +21,20 @@ export async function addAUserDb(newUser: NewUser, db = connection) {
       auth0_id: newUser.auth0Id,
       given_name: newUser.givenName,
       family_name: newUser.familyName,
-    })
-    return addedUser
+    }).returning('user_id')
   } catch (error) {
     console.error('Error in addUser:', error)
     throw error
   }
+}
+
+export async function checkUserDb(
+  auth0_id: any,
+  db = connection,
+): Promise<any>{
+  return await db('users')
+    .select('user_id as userId')
+    .where('auth0_id', auth0_id)
+    .first()
+    .returning('user_id')
 }

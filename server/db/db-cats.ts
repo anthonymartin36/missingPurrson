@@ -1,4 +1,5 @@
 import connection from './connection'
+import { checkUserDb, addAUserDb } from './db-users'
 import {
   MissingCat,
   SightedCat,
@@ -66,14 +67,30 @@ export async function deleteMissingCatDb(
 }
 
 export async function addMissingCatDb(
-  newCat: NewMissingCat,
+  newCat: NewMissingCat, auth0Id: any
 ): Promise<MissingCat[]> {
   try {
     const microchip = (newCat.microchip === 'yes') ? true : false
+    const number = 100
+    let user = await checkUserDb(auth0Id)
+    //if user has a value within the user table
+    if(user === null){
+      // add user to the user table  
+      const newUser = {
+        username: ' ',
+        email: ' ',
+        auth0Id: auth0Id,
+        password: '',
+        givenName: ' ',
+        familyName: ' ',
+      }
+      user = await addAUserDb(newUser)
+    }
+    console.log("Add User ID", user)
     const [{ cat_id: newCatId }] = await connection('missing_cats').insert({
       microchip: microchip,
       microchip_number: newCat.microChipNumber,
-      user_id_mc: newCat.userIdMc,
+      user_id_mc: user.userId,
       cat_name: newCat.catName,
       breed: newCat.breed,
       color: newCat.color,

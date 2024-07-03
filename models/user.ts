@@ -2,7 +2,7 @@ export interface NewUser {
   username: string
   password: string
   email: string
-  auth0_id: string
+  auth0Id: any
   givenName: string
   familyName: string
 }
