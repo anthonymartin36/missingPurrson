@@ -45,6 +45,15 @@
     height: 60%;
     border: solid 1px $white;
   }
+  &-logo{
+    height: 100%;
+    width: auto;
+  }
+  &-user{
+    height: 1.5em;
+    width: auto;
+    border-radius: 75%;
+  }
 
   &__links{
     @include row-flex;
@@ -55,6 +64,7 @@
       height: 1.5em;
       width: auto;
     }
+
   }
 
 

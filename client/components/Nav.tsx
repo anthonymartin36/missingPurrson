@@ -65,20 +65,24 @@ export default function Nav({
               CATS
             </Link>
           </div>
-          <div style={navBorderStyle} className="nav-div"></div>
           <div className="nav__links">
             <IfAuthenticated>
-              <Link to="/" onClick={handleSignOut}>
-                Sign out
+              <Link className="nav-link" style={navItemStyle} to="/" onClick={handleSignOut}>
+                SIGN OUT
               </Link>
-              {userLogged && ( //{userLogged?.nickname}{' '}
-                <p>
-                  <img src={userLogged?.picture} alt={userLogged?.nickname} />
-                </p>
+              {userLogged && ( 
+                <div className="nav-user">
+                  <img  src={userLogged?.picture} alt={userLogged?.nickname} className="nav-user" />
+                </div>
               )}
             </IfAuthenticated>
+            </div>
+            <div className="nav__links">
             <IfNotAuthenticated>
-              <Link to="/" onClick={handleSignIn}>
+              <Link className="nav-link" style={navItemStyle} to="/" onClick={handleSignIn}>
+              SIGN IN
+              </Link>
+              <div className="nav__links" style={navItemStyle}>
               <svg
               xmlns="http://www.w3.org/2000/svg"
               height="16"
@@ -87,11 +91,10 @@ export default function Nav({
             >
               <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
             </svg>
-                Sign in
-              </Link>
+            </div>
             </IfNotAuthenticated>
+            </div>
           </div>
-        </div>
       </nav>
     </header>
   )
