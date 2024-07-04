@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import Nav from './Nav'
+import logoSrc from '../images/MP-Logo-Black.svg'
 
 const emptyCat = {
   catName: '',
@@ -89,7 +90,6 @@ export default function AddMissingCat() {
   const backgroundColour = 'none'
   const itemColour = '#030303'
   const borderColour = '#030303'
-  const navLogo = 'client/images/MP-Logo-Black.svg'
 
   return (
     <>
@@ -97,7 +97,7 @@ export default function AddMissingCat() {
         backgroundColour={backgroundColour}
         itemColour={itemColour}
         borderColour={borderColour}
-        navLogoSrc={navLogo}
+        navLogoSrc={logoSrc}
       />
       <section className="add-m-cat">
         <div className="add-m-cat__header">
