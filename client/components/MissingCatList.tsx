@@ -23,7 +23,9 @@ export default function MissingCatList() {
       return getAllMissingCatsApi()
     },
   })
-  const imageRoute = import.meta.env.VITE_NODE_ENV === 'development' ? './client/' : ''
+  let errorImage = import.meta.env.VITE_NODE_ENV === 'development' ? '../client/images/catGif1.gif' : 'images/catGif1.gif'
+  let loadingImage = import.meta.env.VITE_NODE_ENV === 'development' ? '../client/images/catGif2.gif' : 'images/catGif2.gif'
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingTimePassed(true)
@@ -35,7 +37,7 @@ export default function MissingCatList() {
   if (isError) {
     return (
       <div className="loading">
-        <img src={`./client/images/catGif1.gif`} alt="" />
+        <img src={`${errorImage}`} alt="" />
         <h1 className="loading-heading">Something's broken!</h1>
       </div>
     )
@@ -44,7 +46,7 @@ export default function MissingCatList() {
   if (!missingcats || !loadingTimePassed || isLoading) {
     return (
       <div className="loading">
-        <img src="/client/images/catGif2.gif" alt="" />
+        <img src={`${loadingImage}`}  alt="" />
         <h1 className="loading-heading">Just a sec!</h1>
       </div>
     )

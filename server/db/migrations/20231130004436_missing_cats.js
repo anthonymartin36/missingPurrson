@@ -1,5 +1,5 @@
-export async function up(knex) {
-  await knex.schema.withSchema('public').createTable('missing_cats', (table) => {
+export async function up(knex) { //.withSchema('public')
+  await knex.schema.createTable('missing_cats', (table) => {
     table.increments('cat_id').primary()
     table.boolean('microchip')
     table.string('microchip_number')
