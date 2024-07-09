@@ -23,7 +23,7 @@ export default function MissingCatList() {
       return getAllMissingCatsApi()
     },
   })
-  const imageRoute = import.meta.env.VITE_NODE_ENV === 'development' ? '/client/' : ''
+  const imageRoute = import.meta.env.VITE_NODE_ENV === 'development' ? './client/' : ''
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingTimePassed(true)
