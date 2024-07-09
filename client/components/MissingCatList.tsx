@@ -35,7 +35,7 @@ export default function MissingCatList() {
   if (isError) {
     return (
       <div className="loading">
-        <img src={`${imageRoute}images/catGif1.gif`} alt="" />
+        <img src={`./client/images/catGif1.gif`} alt="" />
         <h1 className="loading-heading">Something's broken!</h1>
       </div>
     )
