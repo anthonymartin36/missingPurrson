@@ -8,7 +8,6 @@ const rootUrl = '/api/v1'
 // ----- MISSING CATS ----- //
 
 // GET all missing cats (/api/v1/missingcats)
-
 export async function getAllMissingCatsApi(): Promise<MissingCat[]> {
   try {
     const response = await request.get(`${rootUrl}/missingcats`)
@@ -19,7 +18,6 @@ export async function getAllMissingCatsApi(): Promise<MissingCat[]> {
 }
 
 // GET one missing cat (/api/v1/missingcats/singlecat/:catId)
-
 export async function getOneMissingCatApi(catId: number): Promise<MissingCat> {
 
   try {
@@ -34,7 +32,6 @@ export async function getOneMissingCatApi(catId: number): Promise<MissingCat> {
 }
 
 // ADD a missing cat (/api/v1/missingcats/addcat)
-
 export async function addMissingCatApi({ formData, token }: { formData: MissingCat, token: string }) { //, token: string
   try {
     const response = await request

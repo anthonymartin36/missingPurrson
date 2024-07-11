@@ -13,7 +13,7 @@ export async function seed(knex) {
         string_location: "16 Ngaio Road, Kelburn, Wellington ",
         sighted_cat_phone: '022-021-2355',
         sighted_cat_email: 'founder@example.com',
-        sighted_image_url: 'server/images/sighted_cats/creed-sighting.jpg',
+        sighted_image_url: 'images/sighted_cats/creed-sighting.jpg',
       },
       {
         sighted_cat_id: 1002,
@@ -28,7 +28,7 @@ export async function seed(knex) {
         string_location: "22B Konini Road, Hataitai, Wellington 6021",
         sighted_cat_phone: '022-021-2355',
         sighted_cat_email: 'rescuer@example.com',
-        sighted_image_url: 'server/images/sighted_cats/butters-sighting.jpg',
+        sighted_image_url: 'images/sighted_cats/butters-sighting.jpg',
       },
       {
         sighted_cat_id: 1003,
@@ -43,7 +43,7 @@ export async function seed(knex) {
         string_location: "11 Girton Terrace, Mount Cook, Wellington",
         sighted_cat_phone: '022-021-2355',
         sighted_cat_email: 'rescuer@example.com',
-        sighted_image_url: 'server/images/sighted_cats/butters-sighting.jpg',
+        sighted_image_url: 'images/sighted_cats/butters-sighting.jpg',
       },
     ])
   }
