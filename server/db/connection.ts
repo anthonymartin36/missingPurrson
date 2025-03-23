@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 type Environment = 'development' | 'production' | 'test'
-const env = (process.env.NODE_ENV as Environment) || 'development' //import.meta.env.NODE_ENV
+const env = (process.env.NODE_ENV as Environment) || 'development'//'development' //import.meta.env.NODE_ENV
 
 type KnexConfig = {
     [key in Environment]: Knex.Config

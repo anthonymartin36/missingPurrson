@@ -1,6 +1,7 @@
 export async function seed(knex) {
   await knex('missing_cats').insert([
     {
+      cat_id: 1,
       microchip: true,
       microchip_number: '21535884',
       user_id_mc: 1,
@@ -18,6 +19,7 @@ export async function seed(knex) {
       cat_missing: true,
     },
     {
+      cat_id: 2,
       microchip: true,
       microchip_number: '21535884',
       user_id_mc: 2,
@@ -35,6 +37,7 @@ export async function seed(knex) {
       cat_missing: true,
     },
     {
+      cat_id: 3,
       microchip: false,
       microchip_number: null,
       user_id_mc: null,
@@ -52,6 +55,7 @@ export async function seed(knex) {
       cat_missing: true,
     },
     {
+      cat_id: 4,
       microchip: true,
       microchip_number: '73218956',
       user_id_mc: 3,

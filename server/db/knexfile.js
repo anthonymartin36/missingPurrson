@@ -36,11 +36,10 @@ export default {
       afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
     },
   },
-
   production: {
     client: 'pg',
     useNullAsDefault: true,
-    connection:  process.env.DATABASE_URL,
+    connection:  "postgres://user:B1PdOTrnueaKEmUQhaDfJ8HkzFfOJRPd@dpg-confcs0cmk4c73a482b0-a.singapore-postgres.render.com/missingpurrson?ssl=true", //process.env.DATABASE_URL,
     migrations: {
       directory: "./migrations", 
       schemaName: 'public',
