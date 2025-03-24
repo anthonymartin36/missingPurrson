@@ -33,7 +33,7 @@ export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
                 zoom={13}
                 center={position} >
                 {data && catData.map((sighting: SightedCat) => {
-                    {return (<><Markers sighting={sighting}/></>)}
+                    {return (<><Markers key={sighting.sightedCatId}  id={sighting.sightedCatId} sighting={sighting}/></>)}
                 })}
                 </GoogleMap>
             </div>
@@ -41,24 +41,25 @@ export default function SightedCatMap ( {catSightings}: SightedCatMapProps) {
 } 
 
 interface MarkersProps {
+    id: number;
     sighting: SightedCat;
 }
 
-const Markers: React.FC<MarkersProps> = ({ sighting }) => {
+const Markers: React.FC<MarkersProps> = ({ id, sighting }) => {
     const [open, setOpen] = useState(false) 
     const toggleInfoWindow = () => setOpen(previousState => !previousState)
     const closeInfoWindow = () => setOpen(false)
-    const options = {icon: "../client/images/favicon-32x32.png"}
+    const options = import.meta.env.VITE_NODE_ENV === 'development' ? {icon: "../client/images/favicon-32x32.png"} : {icon: "/images/favicon-32x32.png"}
     //console.log("Cat Date Seen : " + typeof(sighting.dateSeen) )
     return (
         <>
             <Marker 
                 onClick={toggleInfoWindow}
-                key={sighting.sightedCatId} 
+                key={id} 
                 position={{lat: JSON.parse(sighting.lat), lng: JSON.parse(sighting.lng)}} 
                 options={options} > 
                 {open && (<InfoWindow 
-                    key={sighting.sightedCatId + 500} 
+                    key={id} 
                     onCloseClick={closeInfoWindow} > 
 
                     <div id="catmap-data" className="catmap-data" >
